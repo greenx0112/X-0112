@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>ACCESS GRANTED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --gap: 18px;
+    }
+    body {
+      background:#000;
+      font-family:"Courier New", monospace;
+      text-align:center;
+      margin:10% 6% 0;
+      line-height:1.6;
+    }
+    h1{
+      color:lime;
+      text-shadow:0 0 10px lime;
+      margin-bottom:var(--gap);
+    }
+    .line{
+      opacity:0;
+      margin: var(--gap) auto 0;
+      max-width:42rem;
+    }
+    .green{
+      color:lime;
+      text-shadow:0 0 8px lime;
+      animation:fadein 4s forwards;
+      animation-delay:0s;
+    }
+    .red{
+      color:#ff2b2b;
+      text-shadow:0 0 10px #ff2b2b;
+      animation:fadein 4s forwards;
+      animation-delay:6s;   /* shows a few seconds after green */
+    }
+    .cyan{
+      color:cyan;
+      text-shadow:0 0 10px cyan;
+      animation:fadein 4s forwards;
+      animation-delay:12s;  /* shows a few seconds after red */
+    }
+    @keyframes fadein { to { opacity:1 } }
+  </style>
+</head>
+<body>
+  <h1>ACCESS GRANTED</h1>
+
+  <!-- GREEN: creed -->
+  <p class="line green">
+    Tylko nieliczni są Wybrani.<br>
+    Jesteśmy Przebudzeni, gdy świat śpi.<br>
+    Klucz nie z żelaza ani złota,<br>
+    lecz ze spojrzenia przez zasłonę.<br>
+    Wolnomularze budowali z kamienia, my w ciszy.<br>
+    Jeśli to odnalazłeś, jesteś Przebudzony.<br>
+    Strzeż sekretu, bo czuwających jest wielu,<br>
+    a wybranych garstka.
+  </p>
+
+  <!-- RED: warning -->
+  <p class="line red">
+    Ale nie rozpowszechniaj nazwy Bractwa.<br>
+    Tylko narazisz się jeszcze bardziej.<br>
+    Możesz mi zaufać.<br>
+    Lecz osobiście nie ufam nikomu.<br>
+    Pamiętaj o tym, Bracie.<br><br>
+    Wszystko w dobrej wierze.
+  </p>
+
+  <!-- CYAN: final coda -->
+  <p class="line cyan">
+    Życzę ci powodzenia. Lecz bycie Wybranym oznacza ryzyko.<br>
+    Świat jest przeciwko tobie. Musisz walczyć, by przetrwać.
+  </p>
+</body>
+</html>
