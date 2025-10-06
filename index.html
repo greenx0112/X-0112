@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>ACCESS GRANTED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Cache-busting -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000;
+      font-family: "Courier New", monospace;
+      overflow: hidden;
+      color: #00ff00;
+    }
+    .wrap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      line-height: 1.35;
+      padding: 0 4vw;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 1.4em;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+    }
+    .block {
+      max-width: 42rem;
+      font-size: 0.95em;
+      margin: 6px 0;
+      opacity: 0;
+      will-change: opacity, transform, filter, text-shadow;
+    }
+
+    /* ===== Keyframes ===== */
+    @keyframes fadeIn   { from {opacity:0} to {opacity:1} }
+    @keyframes fadeOut  { from {opacity:1} to {opacity:0} }
+    @keyframes flickerR {
+      0%,100% { filter:none; text-shadow:0 0 6px #ff2b2b; }
+      20%     { filter:brightness(1.3); text-shadow:0 0 12px #ff2b2b; }
+      40%     { filter:brightness(0.7); text-shadow:0 0 4px  #ff2b2b; }
+      60%     { filter:brightness(1.2); text-shadow:0 0 10px #ff2b2b; }
+      80%     { filter:brightness(0.8); text-shadow:0 0 5px  #ff2b2b; }
+    }
+    @keyframes matrixOut {
+      from { transform:translateY(0);    opacity:1 }
+      to   { transform:translateY(100vh);opacity:0 }
+    }
+    @keyframes glyphIn   { from {opacity:0} to {opacity:1} }
+    @keyframes glyphGlitch {
+      0%,100% { transform:translate(-50%,-50%) scale(1.2) }
+      25%     { transform:translate(-50%,-49%) scale(1.22) }
+      50%     { transform:translate(-49%,-50%) scale(1.18) }
+      75%     { transform:translate(-50%,-51%) scale(1.25) }
+    }
+    @keyframes numFlicker {
+      0%,100% { opacity:0.35 }
+      20% { opacity:1;  text-shadow:0 0 12px #0f0; }
+      40% { opacity:0.45 }
+      60% { opacity:1;  text-shadow:0 0 16px #0f0; }
+      80% { opacity:0.55 }
+    }
+    @keyframes numDrift {
+      0%   { transform: translateY(-6px) }
+      50%  { transform: translateY(6px) }
+      100% { transform: translateY(-6px) }
+    }
+    @keyframes eyePulse {
+      0%,100% { text-shadow:0 0 10px #0f0, 0 0 20px #0f0; }
+      50%     { text-shadow:0 0 20px #0f0, 0 0 40px #0f0; }
+    }
+
+    /* ===== Timeline (with requested changes) =====
+       0–3s:    Green fades in, holds.
+       8–11s:   Red fades in (2s later than before), holds.
+       28–31s:  Green + Red fade out together (last 2s longer than before).
+       29–47s:  Cyan fades in at 29s (unchanged), holds, then...
+       47–52s:  Cyan melts down (matrixOut).
+       52s+:    Glyph appears & glitches.
+       53s+:    Eye appears & pulses.
+       52–56s+: Numbers begin flickering + drifting (staggered).
+    ============================================== */
+
+    /* Green creed (non-blue extended +2s) */
+    .green1 {
+      color:#0f0;
+      animation:
+        fadeIn 3s forwards 0s,
+        fadeOut 3s forwards 28s; /* extended to start at 28s, end 31s */
+    }
+
+    /* Red warning (appears 2s later; non-blue extended +2s) */
+    .red {
+      color:#f22;
+      animation:
+        fadeIn 3s forwards 8s,     /* was 6s, now 8s */
+        fadeOut 3s forwards 28s,   /* extended to 28–31s */
+        flickerR 3s linear 1 28s;  /* flicker while fading */
+    }
+
+    /* Cyan final (blue timings unchanged) */
+    .cyanFinal {
+      color: cyan;
+      text-shadow: 0 0 12px #00ffff, 0 0 20px #00ccff;
+      animation:
+        fadeIn   3s forwards 29s,
+        matrixOut 5s forwards 47s;
+    }
+
+    /* Finale layers */
+    .glyph {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(1.2);
+      font-size:5em; font-weight:bold;
+      color:#0f0;
+      text-shadow:0 0 12px #0f0,0 0 20px #0f0,0 0 30px #0f0;
+      opacity:0; z-index:3;
+      animation:
+        glyphIn 2.5s forwards 52s,
+        glyphGlitch 1s steps(2,end) infinite 54.5s;
+    }
+    .eye {
+      position:absolute; top:18%; left:50%;
+      transform:translateX(-50%);
+      font-size:3em;
+      color:#0f0;
+      opacity:0; z-index:4;
+      animation: glyphIn 2s forwards 53s, eyePulse 2s infinite 55s;
+    }
+
+    /* Numbers: flicker + slow vertical drift */
+    .num {
+      position:absolute;
+      font-size:1.2em;
+      color:#0f0;
+      opacity:0.35;
+      z-index:2;
+      animation:
+        numFlicker 2.2s infinite,
+        numDrift   6s ease-in-out infinite;
+    }
+    /* Staggered starts */
+    .n1 { top:15%; left:20%; animation-delay:52.2s, 0s; }
+    .n2 { top:72%; left:28%; animation-delay:52.6s, 1s; }
+    .n3 { top:42%; left:82%; animation-delay:53.0s, 2s; }
+    .n4 { top:24%; left:62%; animation-delay:53.4s, 3s; }
+    .n5 { top:78%; left:68%; animation-delay:53.8s, 4s; }
+
+    @media (max-height:640px),(max-width:360px){
+      h1{font-size:1.25em}
+      .block{font-size:0.9em}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ACCESS GRANTED</h1>
+
+    <p class="block green1">
+      Tylko nieliczni są Wybrani.<br>
+      Jesteśmy Przebudzeni, gdy świat śpi.<br>
+      Klucz nie z żelaza ani złota,<br>
+      lecz ze spojrzenia przez zasłonę.<br>
+      Jeśli to odnalazłeś, jesteś Przebudzony.
+    </p>
+
+    <p class="block red">
+      Ale nie rozpowszechniaj nazwy Bractwa.<br>
+      Tylko narazisz się bardziej.<br>
+      Możesz mi zaufać.<br>
+      Lecz osobiście nie ufam nikomu.
+    </p>
+
+    <p class="block cyanFinal">
+      Życzę ci powodzenia.<br>
+      Bycie Wybranym oznacza ryzyko.<br>
+      Świat jest przeciwko tobie.<br>
+      Musisz walczyć, by przetrwać.
+    </p>
+  </div>
+
+  <!-- Finale: glyph, eye, and drifting numbers -->
+  <div class="glyph">⟐ G ⟐</div>
+  <div class="eye">△ 👁 △</div>
+
+  <div class="num n1">3</div>
+  <div class="num n2">6</div>
+  <div class="num n3">9</div>
+  <div class="num n4">432</div>
+  <div class="num n5">528</div>
+</body>
+</html>
