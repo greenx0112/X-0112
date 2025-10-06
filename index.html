@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>ACCESS GRANTED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Cache-busting -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000;
+      font-family: "Courier New", monospace;
+      overflow: hidden;
+      color: #00ff00;
+    }
+    .wrap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      line-height: 1.35;
+      padding: 0 4vw;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 1.4em;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+    }
+    .block {
+      max-width: 42rem;
+      font-size: 0.95em;
+      margin: 6px 0;
+      opacity: 0;
+      will-change: opacity, transform, filter, text-shadow;
+    }
+
+    /* ===== Keyframes ===== */
+    @keyframes fadeIn   { from {opacity:0} to {opacity:1} }
+    @keyframes fadeOut  { from {opacity:1} to {opacity:0} }
+    @keyframes flickerR {
+      0%,100% { filter:none; text-shadow:0 0 6px #ff2b2b; }
+      20%     { filter:brightness(1.3); text-shadow:0 0 12px #ff2b2b; }
+      40%     { filter:brightness(0.7); text-shadow:0 0 4px  #ff2b2b; }
+      60%     { filter:brightness(1.2); text-shadow:0 0 10px #ff2b2b; }
+      80%     { filter:brightness(0.8); text-shadow:0 0 5px  #ff2b2b; }
+    }
+    @keyframes matrixOut {
+      from { transform:translateY(0);    opacity:1 }
+      to   { transform:translateY(100vh);opacity:0 }
+    }
+    @keyframes glyphIn   { from {opacity:0} to {opacity:1} }
+    @keyframes glyphGlitch {
+      0%,100% { transform:translate(-50%,-50%) scale(1.2) }
+      25%     { transform:translate(-50%,-49%) scale(1.22) }
+      50%     { transform:translate(-49%,-50%) scale(1.18) }
+      75%     { transform:translate(-50%,-51%) scale(1.25) }
+    }
+    @keyframes numFlicker {
+      0%,100% { opacity:var(--opA,0.35) }
+      20% { opacity:var(--opB,1);  text-shadow:0 0 12px #0f0; }
+      40% { opacity:var(--opC,0.45) }
+      60% { opacity:var(--opB,1);  text-shadow:0 0 16px #0f0; }
+      80% { opacity:var(--opD,0.55) }
+    }
+    @keyframes numDriftY {
+      0%   { transform: translateY(-6px) }
+      50%  { transform: translateY(6px) }
+      100% { transform: translateY(-6px) }
+    }
+    @keyframes eyePulse {
+      0%,100% { text-shadow:0 0 10px #0f0, 0 0 20px #0f0; }
+      50%     { text-shadow:0 0 20px #0f0, 0 0 40px #0f0; }
+    }
+
+    /* ===== Timeline (per your last spec) =====
+       0–3s:    Green fades in, holds.
+       8–11s:   Red fades in (2s later), holds.
+       28–31s:  Green + Red fade out together (last 2s longer).
+       29–47s:  Cyan fades in, holds.
+       47–52s:  Cyan melts down.
+       52s+:    Glyph appears & glitches.
+       53s+:    Eye appears & pulses.
+       52–56s+: Numbers begin flicker+drift (staggered), many opacities.
+    ========================================== */
+
+    /* Green creed */
+    .green1 {
+      color:#0f0;
+      animation:
+        fadeIn 3s forwards 0s,
+        fadeOut 3s forwards 28s;
+    }
+
+    /* Red warning */
+    .red {
+      color:#f22;
+      animation:
+        fadeIn 3s forwards 8s,
+        fadeOut 3s forwards 28s,
+        flickerR 3s linear 1 28s;
+    }
+
+    /* Cyan final */
+    .cyanFinal {
+      color: cyan;
+      text-shadow: 0 0 12px #00ffff, 0 0 20px #00ccff;
+      animation:
+        fadeIn   3s forwards 29s,
+        matrixOut 5s forwards 47s;
+    }
+
+    /* Finale layers */
+    .glyph {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(1.2);
+      font-size:5em; font-weight:bold;
+      color:#0f0;
+      text-shadow:0 0 12px #0f0,0 0 20px #0f0,0 0 30px #0f0;
+      opacity:0; z-index:3;
+      animation:
+        glyphIn 2.5s forwards 52s,
+        glyphGlitch 1s steps(2,end) infinite 54.5s;
+    }
+    .eye {
+      position:absolute; top:18%; left:50%;
+      transform:translateX(-50%);
+      font-size:3em;
+      color:#0f0;
+      opacity:0; z-index:4;
+      animation: glyphIn 2s forwards 53s, eyePulse 2s infinite 55s;
+    }
+
+    /* Number base: uses CSS vars for per-item opacity palette */
+    .num {
+      position:absolute;
+      font-family: "Courier New", monospace;
+      color:#0f0;
+      z-index:2;
+      opacity:0.35; /* baseline, overridden by var-driven keyframes */
+      animation:
+        numFlicker var(--flick,2.2s) infinite,
+        numDriftY  var(--drift,6s)   ease-in-out infinite;
+      /* default start time; each instance overrides */
+      animation-delay: 52.3s, 0s;
+      filter: drop-shadow(0 0 6px #0f0);
+      will-change: opacity, transform, text-shadow;
+    }
+    /* Size classes */
+    .sm { font-size:0.9em }
+    .md { font-size:1.2em }
+    .lg { font-size:1.6em }
+    .xl { font-size:2.2em }
+
+    /* Opacity profiles (slightly different flicker curves) */
+    .dim   { --opA:0.20; --opB:0.65; --opC:0.25; --opD:0.35; }
+    .mid   { --opA:0.30; --opB:0.90; --opC:0.40; --opD:0.50; }
+    .bright{ --opA:0.45; --opB:1.00; --opC:0.55; --opD:0.70; }
+
+    @media (max-height:640px),(max-width:360px){
+      h1{font-size:1.25em}
+      .block{font-size:0.9em}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ACCESS GRANTED</h1>
+
+    <p class="block green1">
+      Tylko nieliczni są Wybrani.<br>
+      Jesteśmy Przebudzeni, gdy świat śpi.<br>
+      Klucz nie z żelaza ani złota,<br>
+      lecz ze spojrzenia przez zasłonę.<br>
+      Jeśli to odnalazłeś, jesteś Przebudzony.
+    </p>
+
+    <p class="block red">
+      Ale nie rozpowszechniaj nazwy Bractwa.<br>
+      Tylko narazisz się bardziej.<br>
+      Możesz mi zaufać.<br>
+      Lecz osobiście nie ufam nikomu.
+    </p>
+
+    <p class="block cyanFinal">
+      Życzę ci powodzenia.<br>
+      Bycie Wybranym oznacza ryzyko.<br>
+      Świat jest przeciwko tobie.<br>
+      Musisz walczyć, by przetrwać.
+    </p>
+  </div>
+
+  <!-- Finale: glyph & eye -->
+  <div class="glyph">⟐ G ⟐</div>
+  <div class="eye">△ 👁 △</div>
+
+  <!-- Ancient Numbers: core set (3, 6, 9, 12, 24, 36, 72, 108, 144, 216, 288, 360, 432, 528, 864) -->
+  <!-- Each item sets position + stagger + its own flicker/drift speeds + opacity profile + size -->
+  <div class="num md mid"    style="top:15%; left:20%; --flick:2.2s; --drift:6s;  animation-delay:52.2s, 0s;">3</div>
+  <div class="num sm dim"    style="top:72%; left:28%; --flick:2.6s; --drift:7s;  animation-delay:52.6s, 1s;">6</div>
+  <div class="num md bright" style="top:42%; left:82%; --flick:1.9s; --drift:5.5s;animation-delay:53.0s, 2s;">9</div>
+  <div class="num md mid"    style="top:24%; left:62%; --flick:2.1s; --drift:6.5s;animation-delay:53.4s, 3s;">12</div>
+  <div class="num sm dim"    style="top:78%; left:68%; --flick:2.8s; --drift:7.5s;animation-delay:53.8s, 4s;">24</div>
+  <div class="num sm mid"    style="top:10%; left:78%; --flick:2.3s; --drift:6.2s;animation-delay:54.0s, .5s;">36</div>
+  <div class="num lg bright" style="top:32%; left:12%; --flick:1.8s; --drift:5.8s;animation-delay:54.4s, 1.2s;">72</div>
+  <div class="num md dim"    style="top:60%; left:14%; --flick:2.9s; --drift:8s;  animation-delay:54.8s, 2.4s;">108</div>
+  <div class="num md mid"    style="top:65%; left:82%; --flick:2.5s; --drift:7.2s;animation-delay:55.0s, 1.8s;">144</div>
+  <div class="num md bright" style="top:18%; left:40%; --flick:2.0s; --drift:6.8s;animation-delay:55.2s, 2.8s;">216</div>
+  <div class="num sm dim"    style="top:86%; left:50%; --flick:3.0s; --drift:8.4s;animation-delay:55.4s, 3.4s;">288</div>
+  <div class="num lg mid"    style="top:38%; left:52%; --flick:2.4s; --drift:6.4s;animation-delay:55.6s, 0.6s;">360</div>
+  <div class="num xl bright" style="top:26%; left:74%; --flick:1.7s; --drift:5.6s;animation-delay:55.8s, 1.4s;">432</div>
+  <div class="num lg bright" style="top:74%; left:44%; --flick:1.9s; --drift:5.9s;animation-delay:56.0s, 2.2s;">528</div>
+  <div class="num lg mid"    style="top:56%; left:70%; --flick:2.1s; --drift:6.6s;animation-delay:56.2s, 3.0s;">864</div>
+
+  <!-- A few faint echoes to deepen the field (duplicates at lower opacity) -->
+  <div class="num sm dim"    style="top:8%;  left:8%;  --flick:2.7s; --drift:7.1s;animation-delay:56.3s, 1.3s;">3</div>
+  <div class="num sm dim"    style="top:90%; left:12%; --flick:2.9s; --drift:7.7s;animation-delay:56.5s, 2.6s;">9</div>
+  <div class="num sm dim"    style="top:12%; left:92%; --flick:2.8s; --drift:7.3s;animation-delay:56.7s, 3.1s;">432</div>
+  <div class="num sm dim"    style="top:88%; left:84%; --flick:3.1s; --drift:8.6s;animation-delay:56.9s, 3.9s;">528</div>
+</body>
+</html>
