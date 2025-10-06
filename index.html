@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>ACCESS GRANTED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background: #000;
+      font-family: "Courier New", monospace;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.4;
+    }
+    h1 {
+      color: lime;
+      text-shadow: 0 0 10px lime;
+      margin: 0 0 10px 0;
+      font-size: 1.4em;
+    }
+    .line {
+      opacity: 0;
+      max-width: 95%;
+      font-size: 0.9em; /* slightly smaller so all fits */
+      margin: 6px 0;
+    }
+    .green {
+      color: lime;
+      text-shadow: 0 0 6px lime;
+      animation: fadein 3s forwards;
+      animation-delay: 0s;
+    }
+    .red {
+      color: #ff2b2b;
+      text-shadow: 0 0 6px #ff2b2b;
+      animation: fadein 3s forwards;
+      animation-delay: 6s;
+    }
+    .cyan {
+      color: cyan;
+      text-shadow: 0 0 6px cyan;
+      animation: fadein 3s forwards;
+      animation-delay: 11s;
+    }
+    @keyframes fadein { to { opacity: 1 } }
+  </style>
+</head>
+<body>
+  <h1>ACCESS GRANTED</h1>
+
+  <p class="line green">
+    Tylko nieliczni są Wybrani.<br>
+    Jesteśmy Przebudzeni, gdy świat śpi.<br>
+    Klucz nie z żelaza ani złota,<br>
+    lecz ze spojrzenia przez zasłonę.<br>
+    Jeśli to odnalazłeś, jesteś Przebudzony.
+  </p>
+
+  <p class="line red">
+    Ale nie rozpowszechniaj nazwy Bractwa.<br>
+    Tylko narazisz się bardziej.<br>
+    Możesz mi zaufać.<br>
+    Lecz osobiście nie ufam nikomu.
+  </p>
+
+  <p class="line cyan">
+    Życzę ci powodzenia.<br>
+    Bycie Wybranym oznacza ryzyko.<br>
+    Świat jest przeciwko tobie.<br>
+    Musisz walczyć, by przetrwać.
+  </p>
+</body>
+</html>
