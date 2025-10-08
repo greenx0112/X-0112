@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>/// TRANSMISSION ///</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    :root{
+      --bg:#000;
+      --ink:#e5ffe5;   /* terminal ink */
+      --accent:#ff2b2b;/* warning red */
+      --glow:#00ff88;  /* neon green */
+      --cyan:#00f0ff;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);font-family:"Courier New",ui-monospace,monospace;overflow:hidden;}
+
+    /* ===== Frame & ambience ===== */
+    .frame{
+      position:relative;height:100dvh;width:100vw;
+      display:flex;align-items:center;justify-content:center;
+      padding:6vh 6vw;box-sizing:border-box;
+      filter:contrast(1.02) saturate(0.9);
+      animation:subtle-flick 7s infinite;
+      z-index:2;
+    }
+    .frame::before{
+      content:"";position:absolute;inset:0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.028) 0px,
+          rgba(255,255,255,0.028) 1px,
+          transparent 2px,
+          transparent 3px
+        );
+      mix-blend-mode:overlay;pointer-events:none;
+    }
+    .frame::after{
+      content:"";position:absolute;inset:-2vmax;
+      background: radial-gradient(ellipse at center,
+        rgba(0,0,0,0.05) 38%,
+        rgba(0,0,0,0.55) 78%,
+        rgba(0,0,0,0.92) 100%);
+      pointer-events:none;
+    }
+    .warp{
+      position:fixed;inset:-2vmax;pointer-events:none;z-index:1;
+      background:
+        radial-gradient(ellipse at 50% -20%, rgba(0,255,140,.05), transparent 60%),
+        radial-gradient(ellipse at 50% 120%, rgba(0,180,255,.04), transparent 60%);
+      filter:blur(10px);
+      opacity:.22;
+      animation:warp-drift 11s ease-in-out infinite;
+    }
+
+    /* Terminal text block */
+    .terminal{
+      position:relative; max-width: 56rem; color:var(--ink);
+      text-shadow:
+        0 0 .7px var(--ink),
+        0 0 7px rgba(0,255,0,.14),
+        1px 0 0 rgba(255,0,0,.08),
+       -1px 0 0 rgba(0,150,255,.08);
+      line-height:1.45;
+      font-size: clamp(.9rem, 2.7vw, 1.1rem);
+      letter-spacing:.02em;
+      transform: translateZ(0);
+      opacity:0;
+      animation: power-on 700ms ease-out forwards 400ms;
+      z-index: 3;
+    }
+    .terminal.heartbeat{
+      animation: power-on 700ms ease-out forwards 400ms,
+                 heartbeat 2.6s ease-in-out 2 1.2s;
+    }
+    .final-thump{ animation: quickPulse .5s ease-in-out 1; }
+
+    /* Tiny static sparks */
+    .static{
+      position:fixed; inset:0; pointer-events:none; opacity:0;
+      mix-blend-mode:screen; filter: blur(.4px);
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, #0f0 60%, transparent 61%),
+        radial-gradient(1px 1px at 70% 80%, #0f0 60%, transparent 61%),
+        radial-gradient(1px 1px at 30% 60%, #0f0 60%, transparent 61%);
+      animation: noise-pop 3.4s infinite;
+      z-index: 4;
+    }
+
+    /* Red strobe (one-shot) */
+    .strobe{position:fixed;inset:0;pointer-events:none;opacity:0;background: radial-gradient(ellipse at center, rgba(255,0,0,.28), rgba(255,0,0,0) 70%);mix-blend-mode: screen; z-index: 7;}
+    .strobe.flash{ animation: strobe 280ms ease-out 1; }
+
+    /* Corruption bars */
+    .bars{
+      position:fixed; inset:0; pointer-events:none; z-index:6; opacity:0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0,255,160,.08) 0 2px,
+          rgba(0,0,0,0) 2px 6px
+        );
+    }
+    .bars.show{ animation: bars-sweep 1200ms ease-out forwards; }
+
+    /* ===== Final black screen with glitching Masonic mark ===== */
+    .final{
+      position:fixed; inset:0; background:#000;
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; z-index:9;
+      transition: opacity 900ms ease;
+    }
+    .final.show{ opacity:1; }
+
+    .logo{
+      position:relative; width:min(42vw, 360px); aspect-ratio:1/1;
+      filter: drop-shadow(0 0 12px rgba(0,255,136,.35));
+    }
+    /* three stacked layers for chroma-glitch */
+    .layer{ position:absolute; inset:0; }
+    .layer.r{ mix-blend-mode:screen; filter: hue-rotate(340deg) drop-shadow(0 0 6px rgba(255,60,60,.35)); transform: translate(-1px,0); opacity:.85; }
+    .layer.g{ mix-blend-mode:screen; filter: hue-rotate(120deg) drop-shadow(0 0 10px rgba(0,255,136,.45)); transform: translate(0,0); opacity:1; }
+    .layer.b{ mix-blend-mode:screen; filter: hue-rotate(210deg) drop-shadow(0 0 6px rgba(0,140,255,.35)); transform: translate(1px,0); opacity:.85; }
+
+    .glitch-soft{ animation: glitchShift 2.6s ease-in-out infinite; }
+    .glitch-burst{ animation: glitchBurst 320ms steps(2,end) 1; }
+
+    /* scanline flash overlay for the final scene */
+    .scanline{
+      position:absolute; left:0; right:0; height:2px; top:50%;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 0 10px rgba(255,255,255,.8), 0 0 20px rgba(180,180,180,.6);
+      opacity:0; transform: translateY(-50%) scaleY(0.02);
+      pointer-events:none;
+    }
+    .scanline.flash{ animation: tv-line-flash 520ms ease-out 1; }
+
+    /* ===== Keyframes ===== */
+    @keyframes subtle-flick{ 0%,92%,100%{ filter: contrast(1.02) } 93%{ filter: contrast(1.15) brightness(1.05) } }
+    @keyframes warp-drift{ 0%{transform:scale(1) translate(0,0)} 50%{transform:scale(1.01) translate(-1px,1px)} 100%{transform:scale(1) translate(0,0)} }
+    @keyframes blink{ 50%{opacity:0} }
+    @keyframes power-on{ from{opacity:0; filter:blur(3px)} to{opacity:1; filter:none} }
+    @keyframes noise-pop{ 0%{opacity:0} 6%{opacity:.35} 8%{opacity:0} 60%{opacity:.15} 62%{opacity:0} 100%{opacity:0} }
+    @keyframes heartbeat{ 0%{transform: scale(1)}14%{transform: scale(1.02)}28%{transform: scale(1)}42%{transform: scale(1.015)}70%{transform: scale(1)}100%{transform: scale(1)} }
+    @keyframes quickPulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+    @keyframes strobe{0%{opacity:0}10%{opacity:1}100%{opacity:0}}
+    @keyframes bars-sweep{ 0%{opacity:0; transform:translateY(-6%)} 15%{opacity:.9} 100%{opacity:0; transform:translateY(6%)} }
+    @keyframes tv-line-flash{ 0%{opacity:0; transform:translateY(-50%) scaleY(0.02)} 15%{opacity:1; transform:translateY(-50%) scaleY(1)} 70%{opacity:1; transform:translateY(-50%) scaleY(0.03)} 100%{opacity:0; transform:translateY(-50%) scaleY(0)} }
+
+    /* Logo micro-jitter */
+    @keyframes glitchShift{
+      0%{ transform: translate(0,0) }
+      8%{ transform: translate(-1px, 0) }
+      16%{ transform: translate(1px, 0) }
+      24%{ transform: translate(0, 0.5px) }
+      32%{ transform: translate(0, -0.5px) }
+      100%{ transform: translate(0,0) }
+    }
+    /* short violent burst */
+    @keyframes glitchBurst{
+      0%{ transform: translate(0,0) skewX(0deg); opacity:1 }
+      50%{ transform: translate(-2px,0) skewX(-2deg); opacity:.85 }
+      100%{ transform: translate(2px,0) skewX(2deg); opacity:1 }
+    }
+
+    .cursor{ display:inline-block; width:.65ch; margin-left:.1ch; background: currentColor; animation: blink 1s steps(1,end) infinite; vertical-align:-2px; }
+  </style>
+</head>
+<body>
+  <!-- Ambient layer -->
+  <div class="warp"></div>
+
+  <!-- Main terminal scene -->
+  <div class="frame" id="frame">
+    <div class="terminal" id="term" aria-live="polite"></div>
+    <div class="static" id="static"></div>
+  </div>
+
+  <!-- Overlays -->
+  <div class="strobe" id="strobe"></div>
+  <div class="bars" id="bars"></div>
+
+  <!-- Final blackout with Compass & Square -->
+  <div class="final" id="final">
+    <div class="logo glitch-soft" id="logo">
+      <!-- stack three identical SVG layers for color-channel glitch -->
+      <div class="layer r">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" color="#ff4d4d">
+            <!-- Compass -->
+            <path d="M100 20 L60 120" />
+            <path d="M100 20 L140 120" />
+            <circle cx="100" cy="20" r="8" />
+            <!-- Square -->
+            <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+            <!-- 'G' -->
+            <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" />
+            <path d="M115 100 h-10" />
+          </g>
+        </svg>
+      </div>
+      <div class="layer g">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" color="#00ff88">
+            <path d="M100 20 L60 120" />
+            <path d="M100 20 L140 120" />
+            <circle cx="100" cy="20" r="8" />
+            <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+            <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" />
+            <path d="M115 100 h-10" />
+          </g>
+        </svg>
+      </div>
+      <div class="layer b">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" color="#00c8ff">
+            <path d="M100 20 L60 120" />
+            <path d="M100 20 L140 120" />
+            <circle cx="100" cy="20" r="8" />
+            <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+            <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" />
+            <path d="M115 100 h-10" />
+          </g>
+        </svg>
+      </div>
+      <div class="scanline" id="scanline"></div>
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    /* ========== Tekst (po polsku) ========== */
+    const lines = [
+      "Witaj ponownie, Bracie. Mam nadzieję, że trzymasz się dobrze.",
+      "Personel mówi, że nie wolno mi pozwolić, aby moja mama cię zobaczyła. WIĘC,",
+      "Muszę cię poprosić, żebyś zapisał wszystkie sposoby kontaktu do ciebie (telefon i e-mail).",
+      "I tak samo do twojej mamy.",
+      "Żebyśmy, gdy stąd wyjdę, mogli pozostać w kontakcie.",
+      "Ale moim głównym celem jest doprowadzić cię tam, gdzie są pieniądze.",
+      "Bo tego będziesz potrzebował najbardziej.",
+      "Świat stał się toksyczny i okrutny.",
+      "Ale chcemy ci pomóc i tego się trzymamy.",
+      "Nie mogę patrzeć, jak przechodzisz przez tę udrękę.",
+      "Ja to przeżyłem. Ale u ciebie było gorzej.",
+      "I CHCĘ POMÓC.",
+      "Więc naprawdę mam zamiar to zrobić. Aha.",
+      "Dziękuję, że też przy mnie byłeś!",
+      "To pomogło jak cholera, stary.",
+      "Bardziej, niż ci się wydaje."
+    ];
+
+    const term   = document.getElementById('term');
+    const frame  = document.getElementById('frame');
+    const staticFx = document.getElementById('static');
+    const strobe = document.getElementById('strobe');
+    const bars   = document.getElementById('bars');
+    const final  = document.getElementById('final');
+    const logo   = document.getElementById('logo');
+    const scanline = document.getElementById('scanline');
+
+    /* ===== Typewriter with glitch ===== */
+    const GLITCH = ['#','%','&','/','\\','|','+','*','?','§','£','¢','¤','₧'];
+    function typeLine(text, speed=22, glitchChance=0.08, opts={}){
+      return new Promise(resolve => {
+        const line = document.createElement('div');
+        const span = document.createElement('span');
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        line.appendChild(span); line.appendChild(cursor);
+        term.appendChild(line);
+
+        let i = 0, buffer = '', firedWordCue = false;
+        const cueWord = opts.cueWord || null;
+        const onCue   = opts.onCue || (()=>{});
+
+        const t = setInterval(() => {
+          if (Math.random() < glitchChance && i < text.length-1){
+            span.textContent = buffer + GLITCH[Math.floor(Math.random()*GLITCH.length)];
+            staticFx.style.opacity = '0.25';
+            setTimeout(()=>{ staticFx.style.opacity = '0'; }, 60);
+          } else {
+            buffer += text[i] || '';
+            span.textContent = buffer;
+            i++;
+
+            if (cueWord && !firedWordCue && buffer.includes(cueWord)){
+              firedWordCue = true; onCue();
+            }
+
+            if (i >= text.length){
+              clearInterval(t);
+              cursor.remove();
+              resolve(span);
+            }
+          }
+        }, speed);
+      });
+    }
+
+    /* ===== Effects ===== */
+    function randomJolts(){
+      setInterval(() => {
+        if (Math.random() < 0.18){
+          frame.classList.add('jolt');
+          setTimeout(()=>frame.classList.remove('jolt'), 140);
+        }
+      }, 1200);
+    }
+    function dangerStrobe(){
+      strobe.classList.remove('flash'); void strobe.offsetWidth;
+      strobe.classList.add('flash');
+      frame.classList.add('jolt');
+      setTimeout(()=>frame.classList.remove('jolt'), 160);
+    }
+    function scrambleNode(node, duration=1600){
+      return new Promise(resolve=>{
+        const text = node.textContent;
+        let t = 0, step = 30;
+        const charset = "01█░▒▓<>[]{}()|/\\#%$&*+-=~^•·!?@αβΞΩπ¥₿§¶∞≡∴∵∆µøØ✓";
+        const timer = setInterval(()=>{
+          t += step;
+          const amt = Math.min(1, t/duration);
+          let out = '';
+          for(let i=0;i<text.length;i++){
+            if(text[i]===' '){ out+=' '; continue; }
+            if(i/text.length < 1-amt){
+              out += text[i];
+            } else {
+              out += charset[Math.floor(Math.random()*charset.length)];
+            }
+          }
+          node.textContent = out;
+          if(amt>=1){ clearInterval(timer); resolve(); }
+        }, step);
+      });
+    }
+    function sweepBars(){
+      bars.classList.add('show');
+      setTimeout(()=>bars.classList.remove('show'), 1200);
+    }
+
+    /* ===== Glitch spurts on final logo ===== */
+    function randomLogoGlitches(){
+      setInterval(()=>{
+        if(Math.random()<0.22){
+          logo.classList.add('glitch-burst');
+          scanline.classList.remove('flash'); void scanline.offsetWidth;
+          scanline.classList.add('flash');
+          setTimeout(()=>logo.classList.remove('glitch-burst'), 340);
+        }
+      }, 1600);
+    }
+
+    (async () => {
+      // boot
+      await new Promise(r => setTimeout(r, 400));
+
+      // Typing 25% wolniej: pierwsza 85ms, środkowe 71ms, końcowe 59ms
+      // Przerwy między liniami +25%: 585→731ms, 338→423ms
+      for (let idx=0; idx<lines.length; idx++){
+        const spd = idx===0 ? 85 : (idx > 4 ? 59 : 71);
+        const isHelpLine = lines[idx].includes("CHCĘ POMÓC.");
+        await typeLine(lines[idx], spd, 0.08, isHelpLine ? {
+          cueWord: "CHCĘ POMÓC.",
+          onCue: dangerStrobe
+        } : {});
+        await new Promise(r => setTimeout(r, idx===0 ? 731 : 423));
+      }
+
+      randomJolts();
+      term.classList.add('heartbeat'); // dwa uderzenia
+
+      // krótkie zatrzymanie, a potem końcowe uderzenie + korupcja
+      await new Promise(r => setTimeout(r, 3000));
+      term.classList.add('final-thump');
+
+      // Faza 1: scramblowanie wszystkich linii
+      const nodes = Array.from(term.querySelectorAll('div > span:first-child'));
+      for (const n of nodes){ await scrambleNode(n, 800); }
+
+      // Faza 2: pasy + strob + mocniejsze scramblowanie
+      sweepBars(); dangerStrobe();
+      await Promise.all(nodes.map(n => scrambleNode(n, 650)));
+
+      // Faza 3: całkowite ściemnienie i wejście znaku (czarny ekran)
+      term.style.transition = 'opacity 900ms ease';
+      term.style.opacity = '0';
+
+      // po wygaszeniu terminala – pokaż finał
+      setTimeout(()=>{
+        final.classList.add('show');
+        randomLogoGlitches(); // cykliczne, losowe glitche znaku
+      }, 920);
+    })();
+  })();
+  </script>
+</body>
+</html>
