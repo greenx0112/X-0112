@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>/// TRANSMISSION ///</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    :root{
+      --bg:#000;
+      --ink:#e5ffe5;
+      --accent:#ff2b2b;
+      --glow:#00ff88;
+      --cyan:#00c8ff;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);font-family:"Courier New",ui-monospace,monospace;overflow:hidden;}
+
+    /* Global CRT vignette/curvature */
+    body::before{content:"";position:fixed;inset:-2vmax;z-index:100;pointer-events:none;background:radial-gradient(ellipse at center,rgba(0,0,0,0)58%,rgba(0,0,0,.45)90%,rgba(0,0,0,.9)100%);mix-blend-mode:multiply;filter:blur(1px);}
+    body::after{content:"";position:fixed;inset:-1vmax;z-index:101;pointer-events:none;background:radial-gradient(100% 120% at 50% 0%,rgba(255,255,255,.045),transparent 60%),radial-gradient(100% 120% at 50% 100%,rgba(255,255,255,.03),transparent 60%);opacity:.2;mix-blend-mode:overlay;animation:bulge 8s ease-in-out infinite;}
+    @keyframes bulge{0%,100%{transform:perspective(1200px) rotateX(.6deg)}50%{transform:perspective(1200px) rotateX(-.6deg)}}
+
+    .frame{position:relative;height:100dvh;width:100vw;display:flex;align-items:center;justify-content:center;padding:6vh 6vw;box-sizing:border-box;filter:contrast(1.02) saturate(0.88);animation:subtle-flick 7s infinite, wobble 6.5s ease-in-out infinite;z-index:2;}
+    .frame::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to bottom,rgba(255,255,255,0.03)0px,rgba(255,255,255,0.03)1px,transparent 2px,transparent 3px);mix-blend-mode:overlay;pointer-events:none;}
+    .frame::after{content:"";position:absolute;inset:-2vmax;background:radial-gradient(ellipse at center,rgba(0,0,0,.05)38%,rgba(0,0,0,.55)78%,rgba(0,0,0,.92)100%);pointer-events:none;}
+    @keyframes subtle-flick{0%,92%,100%{filter:contrast(1.02)}93%{filter:contrast(1.15) brightness(1.05)}}
+    @keyframes wobble{0%,100%{transform:skewX(0deg)}50%{transform:skewX(.35deg)}}
+
+    /* NEW: scroll wrapper that follows the typing line */
+    .termwrap{
+      position:relative;
+      width:100%;
+      max-width:56rem;
+      max-height:calc(100dvh - 12vh); /* frame padding (6vh top+bottom) */
+      overflow:auto;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+      padding-right:4px; /* space for overlayed scrollbar */
+      z-index:3;
+      /* hide scrollbar on WebKit while keeping scrollability */
+    }
+    .termwrap::-webkit-scrollbar{width:0;height:0}
+
+    .terminal{
+      position:relative; color:var(--ink);
+      text-shadow:0 0 .75px var(--ink),0 0 8px rgba(0,255,0,.14),1px 0 0 rgba(255,0,0,.09),-1px 0 0 rgba(0,150,255,.09);
+      line-height:1.45; font-size:clamp(.9rem,2.7vw,1.1rem); letter-spacing:.02em;
+      transform:translateZ(0); opacity:0; animation:power-on 700ms ease-out forwards 400ms;
+      filter:brightness(1.02) contrast(1.03);
+    }
+    .terminal.heartbeat{animation:power-on 700ms ease-out forwards 400ms,heartbeat 2.6s ease-in-out 2 1.2s;}
+    .terminal.ghost{text-shadow:0 0 1px rgba(229,255,229,.25),2px 0 6px rgba(0,255,128,.12),-2px 0 6px rgba(0,200,255,.12);filter:brightness(1.04) contrast(1.06);}
+    @keyframes power-on{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:none}}
+    @keyframes heartbeat{0%{transform:scale(1)}14%{transform:scale(1.02)}28%{transform:scale(1)}42%{transform:scale(1.015)}70%{transform:scale(1)}100%{transform:scale(1)}}
+    .final-thump{animation:quickPulse .5s ease-in-out 1;}
+    @keyframes quickPulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+    .static{position:fixed;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;filter:blur(.45px);background-image:radial-gradient(1px 1px at 10% 20%,#0f0 60%,transparent 61%),radial-gradient(1px 1px at 70% 80%,#0f0 60%,transparent 61%),radial-gradient(1px 1px at 30% 60%,#0f0 60%,transparent 61%);animation:noise-pop 3.4s infinite;z-index:4;}
+    @keyframes noise-pop{0%{opacity:0}6%{opacity:.35}8%{opacity:0}60%{opacity:.15}62%{opacity:0}100%{opacity:0}}
+    .dead{position:fixed;inset:0;pointer-events:none;z-index:5;opacity:.12;background:radial-gradient(1px 1px at 12% 22%,#fff,transparent 60%),radial-gradient(1px 1px at 62% 72%,#fff,transparent 60%),radial-gradient(1px 1px at 42% 82%,#fff,transparent 60%),radial-gradient(1px 1px at 78% 18%,#fff,transparent 60%);mix-blend-mode:screen;animation:deadblink 2.8s steps(2,end) infinite;}
+    @keyframes deadblink{0%{opacity:.12}50%{opacity:.02}100%{opacity:.12}}
+
+    .strobe{position:fixed;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,rgba(255,0,0,.28),rgba(255,0,0,0)70%);mix-blend-mode:screen;z-index:7;}
+    .strobe.flash{animation:strobe 280ms ease-out 1;}
+    @keyframes strobe{0%{opacity:0}10%{opacity:1}100%{opacity:0}}
+
+    .bars{position:fixed;inset:0;pointer-events:none;z-index:6;opacity:0;background:repeating-linear-gradient(to bottom,rgba(0,255,160,.08) 0 2px,rgba(0,0,0,0) 2px 6px);}
+    .bars.show{animation:bars-sweep 1200ms ease-out forwards;}
+    @keyframes bars-sweep{0%{opacity:0;transform:translateY(-6%)}15%{opacity:.9}100%{opacity:0;transform:translateY(6%)}}
+
+    /* Final black screen + Compass & Square with sway + glitch */
+    .final{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;z-index:9;transition:opacity 900ms ease;}
+    .final.show{opacity:1;}
+    .logo{position:relative;width:min(42vw,360px);aspect-ratio:1/1;filter:drop-shadow(0 0 14px rgba(0,255,136,.45)) brightness(1.02);animation:sway 7.5s ease-in-out infinite;}
+    @keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+    .invert{filter:invert(1) hue-rotate(180deg) contrast(1.2)!important;}
+    .layer{position:absolute;inset:0;}
+    .layer.r{mix-blend-mode:screen;filter:hue-rotate(340deg) drop-shadow(0 0 7px rgba(255,60,60,.35));transform:translate(-1px,0);opacity:.85;}
+    .layer.g{mix-blend-mode:screen;filter:hue-rotate(120deg) drop-shadow(0 0 12px rgba(0,255,136,.55));transform:translate(0,0);opacity:1;}
+    .layer.b{mix-blend-mode:screen;filter:hue-rotate(210deg) drop-shadow(0 0 7px rgba(0,140,255,.35));transform:translate(1px,0);opacity:.85;}
+    .glitch-soft{animation:glitchShift 2.6s ease-in-out infinite;}
+    .glitch-burst{animation:glitchBurst 320ms steps(2,end) 1;}
+    @keyframes glitchShift{0%{transform:translate(0,0)}8%{transform:translate(-1px,0)}16%{transform:translate(1px,0)}24%{transform:translate(0,.5px)}32%{transform:translate(0,-.5px)}100%{transform:translate(0,0)}}
+    @keyframes glitchBurst{0%{transform:translate(0,0) skewX(0deg);opacity:1}50%{transform:translate(-2px,0) skewX(-2deg);opacity:.85}100%{transform:translate(2px,0) skewX(2deg);opacity:1}}
+    .scanline{position:absolute;left:0;right:0;height:2px;top:50%;background:rgba(255,255,255,.9);box-shadow:0 0 10px rgba(255,255,255,.8),0 0 20px rgba(180,180,180,.6);opacity:0;transform:translateY(-50%) scaleY(0.02);pointer-events:none;}
+    .scanline.flash{animation:tv-line-flash 520ms ease-out 1;}
+    @keyframes tv-line-flash{0%{opacity:0;transform:translateY(-50%) scaleY(0.02)}15%{opacity:1;transform:translateY(-50%) scaleY(1)}70%{opacity:1;transform:translateY(-50%) scaleY(0.03)}100%{opacity:0;transform:translateY(-50%) scaleY(0)}}
+
+    /* Echo effect for the Michigan exchange */
+    .echo{position:relative;display:block;}
+    .echo::before,.echo::after{
+      content:attr(data-text); position:absolute; left:0; right:0; top:0;
+      opacity:.18; filter:blur(.6px); transform:translate(1px,1px);
+      color:#9affc9; text-shadow:0 0 8px rgba(0,255,136,.25); pointer-events:none; animation:echoFade .9s ease-out forwards;
+    }
+    .echo::after{ color:#ff7a7a; transform:translate(-1px,-1px); text-shadow:0 0 8px rgba(255,60,60,.25); animation-delay:.08s; }
+    @keyframes echoFade{0%{opacity:.22}100%{opacity:0}}
+
+    .cursor{display:inline-block;width:.65ch;margin-left:.1ch;background:currentColor;animation:blink 1s steps(1,end) infinite;vertical-align:-2px;}
+    @keyframes blink{50%{opacity:0}}
+    .jolt{animation:jolt 120ms ease-in-out;}
+    @keyframes jolt{0%{transform:translate(0,0)}40%{transform:translate(1px,-1px)}80%{transform:translate(-1px,1px)}100%{transform:translate(0,0)}}
+  </style>
+</head>
+<body>
+  <div class="dead"></div>
+
+  <div class="frame" id="frame">
+    <!-- NEW: scroll-follow wrapper -->
+    <div class="termwrap" id="termwrap">
+      <div class="terminal" id="term" aria-live="polite"></div>
+    </div>
+    <div class="static" id="static"></div>
+  </div>
+
+  <div class="strobe" id="strobe"></div>
+  <div class="bars" id="bars"></div>
+
+  <div class="final" id="final">
+    <div class="logo glitch-soft" id="logo">
+      <div class="layer r">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" color="#ff4d4d">
+            <path d="M100 20 L60 120" /><path d="M100 20 L140 120" /><circle cx="100" cy="20" r="8" />
+            <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+            <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" /><path d="M115 100 h-10" />
+          </g>
+        </svg>
+      </div>
+      <div class="layer g">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" color="#00ff88">
+            <path d="M100 20 L60 120" /><path d="M100 20 L140 120" /><circle cx="100" cy="20" r="8" />
+            <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+            <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" /><path d="M115 100 h-10" />
+          </g>
+        </svg>
+      </div>
+      <div class="layer b">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" color="#00c8ff">
+            <path d="M100 20 L60 120" /><path d="M100 20 L140 120" /><circle cx="100" cy="20" r="8" />
+            <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+            <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" /><path d="M115 100 h-10" />
+          </g>
+        </svg>
+      </div>
+      <div class="scanline" id="scanline"></div>
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    /* Firm, daunting Polish copy (unchanged content) */
+    const lines = [
+      "Przepraszam, ale muszę zapytać o twojego drugiego „najlepszego przyjaciela”.",
+      "Mogę pomóc. Nie wszystkim.",
+      "Jesteś mi najbliższa, więc pomogę tobie.",
+      "Pomagam TYLKO JEDNEJ osobie naraz.",
+      "Nie jestem Bogiem. Mam więcej możliwości niż większość — to prawda.",
+      "",
+      "Skupiam się na tobie, Camile.",
+      "Twoim przyjacielem zajmę się dopiero, gdy postawię cię na nogi. Zgoda?",
+      "",
+      "Potrzebuję pełnej szczerości.",
+      "NAWET JEŚLI kogoś zabiłaś.",
+      "Muszę wiedzieć, kogo naprawiam.",
+      "",
+      "Wszyscy popełniamy błędy. Słucham.",
+      "Pomogę tylko temu, kto mówi mi całą prawdę.",
+      "",
+      "Twój przyjaciel powiedział: „Michigan”.",
+      "Gdy zapytałem: „Ameryka?”.",
+      "Odpowiedział: „tak”.",
+      "",
+      "Skąd to wie? Co ty wiesz?",
+      "",
+      "Nie powinniście znać tego, co wydarzyło się w Michigan.",
+      "Mógł powiedzieć cokolwiek. Dowolne zdanie.",
+      "",
+      "A jednak padło słowo, które łączy się z moją przeszłością. Tylko to.",
+      "",
+      "Co wiesz o mnie i skąd? Nie jestem zły — jestem zdezorientowany.",
+      "Chcę po prostu wiedzieć, co się dzieje. Zrozumiano?",
+      "",
+      "Pamiętaj: to dla mnie też bywa przerażające. Nieznane jest straszne.",
+      "A on wypowiedział tylko to jedno słowo. To miejsce to przeszłość, którą trzymam w tajemnicy.",
+      "",
+      "Przejdziemy przez to. Zaufaj mi."
+    ];
+
+    const frame   = document.getElementById('frame');
+    const wrap    = document.getElementById('termwrap');
+    const term    = document.getElementById('term');
+    const staticFx= document.getElementById('static');
+    const strobe  = document.getElementById('strobe');
+    const bars    = document.getElementById('bars');
+    const final   = document.getElementById('final');
+    const logo    = document.getElementById('logo');
+    const scanline= document.getElementById('scanline');
+
+    const GLITCH=['#','%','&','/','\\','|','+','*','?','§','£','¢','¤','₧'];
+
+    function scrollToBottom(throttle=false, i=0){
+      if(throttle && i%6!==0) return; // lighten work: scroll every 6 chars
+      wrap.scrollTop = wrap.scrollHeight;
+    }
+
+    function typeLine(text,speed=22,glitchChance=0.08,{cueWord,onCue}={}, throttleEvery=6){
+      return new Promise(resolve=>{
+        const line = document.createElement('div');
+        const span = document.createElement('span');
+        const cursor = document.createElement('span');
+        cursor.className='cursor';
+        line.appendChild(span); line.appendChild(cursor);
+        term.appendChild(line);
+
+        let i=0,buf='',fired=false;
+        const t=setInterval(()=>{
+          if(Math.random()<glitchChance && i<text.length-1){
+            span.textContent = buf + GLITCH[Math.floor(Math.random()*GLITCH.length)];
+            staticFx.style.opacity='0.25'; setTimeout(()=>staticFx.style.opacity='0',60);
+          }else{
+            buf += text[i]||''; span.textContent = buf; i++;
+            if(cueWord && !fired && buf.includes(cueWord)){ fired=true; onCue && onCue(); }
+          }
+          scrollToBottom(true, i); // follow while typing (throttled)
+          if(i>=text.length){
+            clearInterval(t); cursor.remove();
+            scrollToBottom(false);         // ensure final position
+            resolve({line,span});
+          }
+        },speed);
+      });
+    }
+
+    function randomJolts(){
+      setInterval(()=>{ if(Math.random()<0.2){ frame.classList.add('jolt'); term.classList.toggle('ghost'); setTimeout(()=>{frame.classList.remove('jolt');term.classList.toggle('ghost');},160);} },1100);
+    }
+    function dangerStrobe(){
+      strobe.classList.remove('flash'); void strobe.offsetWidth;
+      strobe.classList.add('flash'); frame.classList.add('jolt');
+      setTimeout(()=>frame.classList.remove('jolt'),160);
+    }
+    function scrambleNode(node,duration=1600){
+      return new Promise(resolve=>{
+        const text=node.textContent; let t=0,step=30;
+        const charset="01█░▒▓<>[]{}()|/\\#%$&*+-=~^•·!?@αβΞΩπ¥₿§¶∞≡∴∵∆µøØ✓";
+        const timer=setInterval(()=>{
+          t+=step; const amt=Math.min(1,t/duration); let out='';
+          for(let i=0;i<text.length;i++){
+            if(text[i]===' '){ out+=' '; continue; }
+            out += (i/text.length < 1-amt) ? text[i] : charset[Math.floor(Math.random()*charset.length)];
+          }
+          node.textContent=out;
+          if(amt>=1){ clearInterval(timer); resolve(); }
+        },step);
+      });
+    }
+    function sweepBars(){ bars.classList.add('show'); setTimeout(()=>bars.classList.remove('show'),1200); }
+
+    function randomLogoGlitches(){
+      setInterval(()=>{
+        if(Math.random()<0.28){
+          logo.classList.add('glitch-burst');
+          scanline.classList.remove('flash'); void scanline.offsetWidth; scanline.classList.add('flash');
+          if(Math.random()<0.35){ logo.classList.add('invert'); setTimeout(()=>logo.classList.remove('invert'),160); }
+          setTimeout(()=>logo.classList.remove('glitch-burst'),340);
+        }
+      },1400);
+    }
+
+    function applyEcho(spanEl){
+      const parent = spanEl.parentElement;
+      parent.classList.add('echo');
+      parent.setAttribute('data-text', spanEl.textContent);
+    }
+
+    (async()=>{
+      await new Promise(r=>setTimeout(r,400));
+
+      // Typing 15% slower: 85→98, 71→82, 59→68
+      // Pauses unchanged: 731ms / 423ms
+      for(let idx=0;idx<lines.length;idx++){
+        const spd = idx===0 ? 98 : (idx>4 ? 68 : 82);
+        const cue = lines[idx].includes("TYLKO JEDNEJ");
+        const {span} = await typeLine(lines[idx], spd, 0.08, cue ? {cueWord:"TYLKO JEDNEJ", onCue:dangerStrobe} : {});
+        // Echo lines in the Michigan exchange
+        if(
+          lines[idx].startsWith("Twój przyjaciel powiedział: „Michigan”.") ||
+          lines[idx].startsWith("Gdy zapytałem: „Ameryka”.") ||
+          lines[idx].startsWith("Gdy zapytałem: „Ameryka?”.") ||
+          lines[idx].startsWith("Odpowiedział: „tak”.")
+        ){
+          applyEcho(span);
+        }
+        await new Promise(r=>setTimeout(r, idx===0 ? 731 : 423));
+      }
+
+      randomJolts();
+      term.classList.add('heartbeat');
+
+      await new Promise(r=>setTimeout(r,3200));
+      term.classList.add('final-thump');
+
+      const nodes = Array.from(term.querySelectorAll('div > span:first-child'));
+      for(const n of nodes){ await scrambleNode(n,820); }
+
+      sweepBars(); dangerStrobe();
+      await Promise.all(nodes.map(n=>scrambleNode(n,660)));
+
+      // Fade the whole wrapper (so the scrollbar vanishes with it)
+      wrap.style.transition='opacity 900ms ease';
+      wrap.style.opacity='0';
+
+      setTimeout(()=>{ final.classList.add('show'); randomLogoGlitches(); },920);
+    })();
+  })();
+  </script>
+</body>
+</html>
