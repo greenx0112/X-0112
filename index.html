@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/// TRANSMISSION /// (Legacy Safe)</title>
+<style>
+  /* Minimal, reliable styling for locked-down browsers */
+  html,body{margin:0;height:100%;background:#000;color:#e5ffe5;font-family:"Courier New",ui-monospace,monospace}
+  .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
+  .term{width:100%;max-width:56rem;line-height:1.45;letter-spacing:.02em}
+  .line{white-space:pre-wrap;margin-bottom:6px}
+  .cursor{display:inline-block;width:.6ch;height:1.05em;background:currentColor;vertical-align:-2px;opacity:.7}
+  .hint{color:#7aff7a;margin-bottom:10px}
+  .sig{color:#00ff66;text-shadow:0 0 10px rgba(0,255,102,.6),0 0 22px rgba(0,255,102,.35)}
+  .hidden{display:none}
+
+  /* Final simple logo */
+  .final{position:fixed;inset:0;background:#000;display:none;align-items:center;justify-content:center}
+  .final.show{display:flex}
+  .logo{width:min(44vw,360px);max-width:90vw}
+  .logo g{stroke:#00ff88}
+  .halo{box-shadow:0 0 24px rgba(0,255,136,.55)}
+
+  /* Error box so problems are obvious */
+  #err{position:fixed;left:0;right:0;bottom:0;background:#2b0000;color:#ffdede;font:14px/1.4 ui-monospace,monospace;padding:8px 12px;display:none;white-space:pre-wrap}
+  #err b{color:#ff7b7b}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="term" id="term">
+    <div class="hint" id="bootHint">If you can read this, rendering works. Typing will begin shortly…</div>
+    <!-- typed lines appear here -->
+  </div>
+</div>
+
+<!-- Final simple logo -->
+<div class="final" id="final">
+  <div class="halo">
+    <svg class="logo" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-label="Compass & Square">
+      <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M100 20 L60 120" />
+        <path d="M100 20 L140 120" />
+        <circle cx="100" cy="20" r="8" />
+        <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+        <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" />
+        <path d="M115 100 h-10" />
+      </g>
+    </svg>
+  </div>
+</div>
+
+<div id="err"></div>
+
+<script>
+/* Ultra-compatible JavaScript — no modern features required */
+(function(){
+  var term = document.getElementById('term');
+  var bootHint = document.getElementById('bootHint');
+  var final = document.getElementById('final');
+  var errBox = document.getElementById('err');
+
+  // Error overlay (visible if anything crashes)
+  function showErr(msg){
+    try{
+      errBox.style.display = 'block';
+      errBox.innerHTML = "<b>Runtime error</b>: " + String(msg);
+    }catch(e){}
+  }
+  window.onerror = function(msg){ showErr(msg); };
+  window.addEventListener('unhandledrejection', function(e){ showErr(e.reason ? e.reason : 'unhandled'); });
+
+  // Your English text (split into lines for the typewriter)
+  var lines = [
+"Honestly, to me it seems like another common case of mankind desperately searching for a fix.",
+"",
+"I mean, has iCloud subscription... And if it means affording, £5 - £7 on storage, then the counterpart must have spent the whole £70.",
+"",
+"I assume Ket; you had mentioned it. But remember that cheap flake can land at this price.",
+"",
+"And dealers don't sort with Five Notes. We all know that! ;)",
+"",
+"So, to me it looks like you gave £70... A deal offered, and went straight to an ATM, and withdrew all £70, to get the fix wanted.",
+"",
+"Otherwise, iCloud would have automatically taken that smaller amount. However, if he got a deal, then he wouldn't afford the subscription. Aha, sorry if it sounds brutal. But equally, a lot of men are like this.",
+"",
+"But, I may be wrong... However, I'll still look into more. As I said, pasted in some sites online, and as for email \"pwned\", which should cause the spontaneous entropy. However, I have more tucked up my sleeve, in some time.",
+"",
+"But it does take some time to prepare. However, life should be, \"hard to manage\"...",
+"",
+"But, that's why I made a song, called \"Hard To Manage\" to do with a \"Night Out just with the guy\" but the girl wanders off... And you aren't really going to want that in your life, so it seems to add up.",
+"",
+"I wouldn't put it past everything, with the rest you said. However, I've only just started. This goes on in the background. As once I get far enough, my bot will do the rest. And not chatgpt, my laptop has a built in bot I programmed.",
+"",
+"Don't worry, it's aight. ;)",
+"",
+"                  - x-X-x"
+  ];
+
+  // Simple typewriter function
+  function typeLine(text, speed, className, cb){
+    try{
+      var line = document.createElement('div');
+      line.className = 'line';
+      var span = document.createElement('span');
+      if(className){ span.className = className; }
+      var cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      line.appendChild(span);
+      line.appendChild(cursor);
+      term.appendChild(line);
+
+      var i = 0, buf = "";
+      var t = setInterval(function(){
+        try{
+          if(i <= text.length){
+            buf = text.substr(0, i);
+            span.textContent = buf;
+            i++;
+          } else {
+            clearInterval(t);
+            if(cursor && cursor.parentNode) cursor.parentNode.removeChild(cursor);
+            if(cb) cb(span);
+          }
+          // keep view scrolled
+          if(term.parentNode) term.parentNode.scrollTop = term.parentNode.scrollHeight;
+        }catch(e){
+          clearInterval(t);
+          if(cb) cb(span);
+        }
+      }, speed);
+    }catch(e){
+      if(cb) cb(null);
+    }
+  }
+
+  // Simple scramble for final impact (works even in old browsers)
+  function scrambleNode(node, duration){
+    duration = duration || 180;
+    try{
+      var text = node.textContent || '';
+      var step = 16;
+      var t = 0;
+      var chars = "01█░▒▓<>[]{}()|/\\#%$&*+-=~^•·!?@";
+      var timer = setInterval(function(){
+        t += step;
+        var amt = Math.min(1, t / duration);
+        var out = "";
+        var cut = 1 - amt;
+        for(var i=0;i<text.length;i++){
+          if(text[i] === ' '){ out += ' '; continue; }
+          out += (i / text.length < cut) ? text[i] : chars[Math.floor(Math.random()*chars.length)];
+        }
+        try{ node.textContent = out; }catch(e){}
+        if(amt >= 1){ clearInterval(timer); }
+      }, step);
+    }catch(e){}
+  }
+
+  // Show final sigil
+  function revealLogo(){
+    try{ final.className = 'final show'; }catch(e){}
+  }
+
+  // Run sequence
+  function run(){
+    try{
+      if(bootHint) bootHint.style.display = 'none';
+      var idx = 0;
+      function next(){
+        if(idx >= lines.length){
+          // final pause then show sigil
+          setTimeout(revealLogo, 600);
+          return;
+        }
+        var txt = lines[idx];
+        var isSig = (txt.replace(/\s+/g,'') === "-x-X-x");
+        // slower for first and signature; adjust to taste
+        var speed = isSig ? 50 : (idx === 0 ? 80 : (idx > 6 ? 55 : 68));
+        typeLine(txt, speed, isSig ? 'sig' : '', function(span){
+          // subtle scramble for lines that have content
+          if(span && span.textContent && span.textContent.trim().length > 0 && Math.random() < 0.35){
+            setTimeout(function(){ scrambleNode(span, 220); }, 120);
+          }
+          idx++;
+          setTimeout(next, isSig ? 300 : 160);
+        });
+      }
+      next();
+    }catch(e){
+      showErr(e.message || e);
+    }
+  }
+
+  // auto-start after 1.5s
+  setTimeout(run, 1500);
+
+})();
+</script>
+</body>
+</html>
