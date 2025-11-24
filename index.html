@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/// ACCESS NODE ///</title>
+<style>
+  html,body{margin:0;height:100%;background:#000;color:#e5ffe5;font-family:"Courier New",ui-monospace,monospace}
+
+  /* Scrolling viewport that follows newest line */
+  .viewport{position:relative;height:100vh;box-sizing:border-box;padding:24px;overflow:auto}
+  .term{width:100%;max-width:56rem;margin:0 auto;line-height:1.45;letter-spacing:.02em}
+  .line{white-space:pre-wrap;margin:0 0 6px 0}
+  .cursor{display:inline-block;width:.6ch;height:1.05em;background:currentColor;vertical-align:-2px;opacity:.7}
+  .hint{color:#7aff7a;margin-bottom:10px}
+
+  /* Coloured lines */
+  .greenLine{color:#00ff66;text-shadow:0 0 6px rgba(0,255,120,.6),0 0 14px rgba(0,255,120,.4)}
+  .redLine{color:#ff4d4d;text-shadow:0 0 6px rgba(255,80,80,.7),0 0 18px rgba(255,40,40,.6)}
+
+  /* Optional sig style, if ever reused */
+  .sig{color:#00ff66;text-shadow:0 0 10px rgba(0,255,102,.6),0 0 22px rgba(0,255,102,.35)}
+
+  /* Scramble-fade */
+  .fadeOut{opacity:0;transition:opacity 1600ms ease;}
+
+  /* Final sigil — centered */
+  .final{position:fixed;inset:0;background:#000;display:none;align-items:center;justify-content:center}
+  .final.show{display:flex}
+  .logoWrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ff4040;      /* base = red */
+  }
+  .logo{width:min(44vw,360px);max-width:90vw}
+  .halo{box-shadow:0 0 26px rgba(255,64,64,.75)}
+
+  /* All layers use currentColor so we can flicker red/green */
+  .layer{position:absolute;inset:0}
+  .layer g{stroke:currentColor}
+  .layer.r{transform:translateX(-1px)}
+  .layer.b{transform:translateX(1px)}
+
+  /* Scanline & glitch animations */
+  .scanline{position:absolute;left:0;right:0;height:2px;background:rgba(255,255,255,.9);
+            box-shadow:0 0 10px rgba(255,255,255,.85),0 0 20px rgba(200,200,200,.6);opacity:0}
+
+  @keyframes flicker{0%,100%{opacity:1}5%{opacity:.55}10%{opacity:.2}15%{opacity:.9}22%{opacity:.6}28%{opacity:.95}36%{opacity:.4}44%{opacity:1}60%{opacity:.7}78%{opacity:.3}}
+  @keyframes jitter{0%{transform:translate(0,0)}20%{transform:translate(1px,-1px)}40%{transform:translate(-1px,1px)}60%{transform:translate(1px,0)}80%{transform:translate(-1px,0)}100%{transform:translate(0,0)}}
+  @keyframes scan{0%{opacity:0;top:5%}10%{opacity:1}90%{opacity:1}100%{opacity:0;top:95%}}
+  @keyframes pulseGlow{0%{filter:brightness(1)}50%{filter:brightness(1.4)}100%{filter:brightness(1)}}
+
+  .glitchFlicker{animation:flicker 1.05s infinite}
+  .glitchJitter{animation:jitter .16s steps(2,end) infinite}
+  .glowPulse{animation:pulseGlow .38s ease-in-out 1}
+  .scanRun{animation:scan .38s ease-out 1}
+
+  /* Extra corruption toggles */
+  .skewBurst{transform:skewX(3deg) translateX(1px)}
+  .blurBurst{filter:blur(1.2px) contrast(1.35) saturate(1.1)}
+  .pixelate{image-rendering:pixelated;filter:contrast(1.6) saturate(0.9)}
+  .hardPop{filter:contrast(1.9) brightness(1.2)}
+  .burst{opacity:.85}
+
+  /* Colour-shift for red→green flickers */
+  .greenFlash{color:#00ff66}
+  .redBase{color:#ff4040}
+
+  /* Error box */
+  #err{position:fixed;left:0;right:0;bottom:0;background:#2b0000;color:#ffdede;font:14px/1.4 ui-monospace,monospace;padding:8px 12px;display:none;white-space:pre-wrap}
+  #err b{color:#ff7b7b}
+</style>
+</head>
+<body>
+
+<div class="viewport" id="view">
+  <div class="term" id="term">
+    <div class="hint" id="bootHint">If you can read this, rendering works. Typing will begin shortly…</div>
+  </div>
+</div>
+
+<!-- Final glitchy sigil (centered, red base with green flickers) -->
+<div class="final" id="final">
+  <div class="logoWrap halo redBase" id="logoWrap" aria-label="Compass & Square">
+    <div class="layer g">
+      <svg class="logo" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+        <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M100 20 L60 120" /><path d="M100 20 L140 120" /><circle cx="100" cy="20" r="8" />
+          <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+          <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" />
+          <path d="M115 100 h-10" />
+        </g>
+      </svg>
+    </div>
+    <div class="layer r">
+      <svg class="logo" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+        <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M100 20 L60 120" /><path d="M100 20 L140 120" /><circle cx="100" cy="20" r="8" />
+          <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+          <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" />
+          <path d="M115 100 h-10" />
+        </g>
+      </svg>
+    </div>
+    <div class="layer b">
+      <svg class="logo" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+        <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M100 20 L60 120" /><path d="M100 20 L140 120" /><circle cx="100" cy="20" r="8" />
+          <path d="M60 140 L140 140 L140 160 L60 160 Z" />
+          <path d="M120 100 a20 20 0 1 0 -40 0 a20 20 0 1 0 40 0" />
+          <path d="M115 100 h-10" />
+        </g>
+      </svg>
+    </div>
+    <div class="scanline" id="scanline"></div>
+  </div>
+</div>
+
+<div id="err"></div>
+
+<script>
+/* Legacy-safe JS (no ES6) */
+(function(){
+  var view = document.getElementById('view');
+  var term = document.getElementById('term');
+  var bootHint = document.getElementById('bootHint');
+  var final = document.getElementById('final');
+  var logoWrap = document.getElementById('logoWrap');
+  var scanline = document.getElementById('scanline');
+  var errBox = document.getElementById('err');
+
+  function showErr(msg){ try{ errBox.style.display='block'; errBox.innerHTML="<b>Runtime error</b>: "+String(msg);}catch(e){} }
+  window.onerror=function(m){showErr(m)}; window.addEventListener('unhandledrejection',function(e){showErr(e&&e.reason?e.reason:'unhandled')});
+
+  /* Text: green → red */
+  var lines = [
+"Loading user ID...",
+"",
+"DENIED, Access authentication Prohibited!"
+  ];
+
+  function follow(){ try{ view.scrollTop = view.scrollHeight; }catch(e){} }
+
+  function typeLine(text, speed, className, cb){
+    try{
+      var line = document.createElement('div'); line.className='line';
+      var span = document.createElement('span'); if(className){ span.className=className; }
+      var cursor = document.createElement('span'); cursor.className='cursor';
+      line.appendChild(span); line.appendChild(cursor); term.appendChild(line);
+      follow();
+
+      var i=0, t=setInterval(function(){
+        try{
+          if(i<=text.length){ span.textContent=text.substr(0,i); i++; follow(); }
+          else{ clearInterval(t); if(cursor.parentNode) cursor.parentNode.removeChild(cursor); if(cb) cb(span, line); }
+        }catch(e){ clearInterval(t); if(cb) cb(span,line); }
+      }, speed);
+    }catch(e){ if(cb) cb(null,null); }
+  }
+
+  function scrambleNode(node, duration, done){
+    duration = duration || 420;
+    try{
+      var text = node.textContent||''; var step=16, t=0;
+      var chars="01█░▒▓<>[]{}()|/\\#%$&*+-=~^•·!?@";
+      var timer=setInterval(function(){
+        t+=step; var amt=Math.min(1, t/duration); var out="", cut=1-amt;
+        for(var i=0;i<text.length;i++){
+          var ch=text.charAt(i);
+          if(ch===' '){ out+=' '; continue; }
+          out += (i/text.length<cut)? ch : chars.charAt(Math.floor(Math.random()*chars.length));
+        }
+        try{ node.textContent=out; }catch(e){}
+        if(amt>=1){ clearInterval(timer); if(done) done(); }
+      }, step);
+    }catch(e){ if(done) done(); }
+  }
+
+  function fadeLine(lineEl){
+    try{
+      if(lineEl.className.indexOf('fadeOut')===-1) lineEl.className += ' fadeOut';
+      setTimeout(function(){ try{ if(lineEl.parentNode) lineEl.parentNode.removeChild(lineEl); }catch(e){} }, 1700);
+    }catch(e){}
+  }
+
+  var glitchTimer=null, scanTimer=null, colourTimer=null;
+
+  function revealLogo(){
+    try{
+      final.className='final show';
+
+      addPersistent('glitchFlicker');
+      addPersistent('glitchJitter');
+
+      glitchTimer=setInterval(function(){
+        var pick = Math.random();
+        if(pick<0.35){ addTempClass(logoWrap,'skewBurst',150); }
+        else if(pick<0.65){ addTempClass(logoWrap,'blurBurst',180); }
+        else { addTempClass(logoWrap,'pixelate',180); }
+        if(Math.random()<0.5){ addTempClass(logoWrap,'hardPop',140); }
+        if(Math.random()<0.55){ addTempClass(logoWrap,'glowPulse',380); }
+      }, 150);
+
+      scanTimer=setInterval(function(){
+        try{
+          scanline.style.opacity='1'; scanline.style.top='5%';
+          scanline.className='scanline scanRun';
+          setTimeout(function(){ scanline.className='scanline'; scanline.style.opacity='0'; },420);
+        }catch(e){}
+      }, 540);
+
+      /* Red base with green flicker flashes */
+      colourTimer=setInterval(function(){
+        try{
+          if(Math.random()<0.6){
+            addTempClass(logoWrap,'greenFlash',180);   /* brief green pulse */
+          }else{
+            if(logoWrap.className.indexOf('redBase')===-1){
+              logoWrap.className += ' redBase';
+            }
+          }
+        }catch(e){}
+      }, 220);
+
+      function addPersistent(cls){
+        var c=logoWrap.className;
+        if(c.indexOf(cls)===-1){ logoWrap.className=c+' '+cls; }
+      }
+    }catch(e){}
+  }
+
+  function addTempClass(el, cls, ms){
+    try{
+      var c=el.className; if(c.indexOf(cls)===-1){ el.className=c+' '+cls; }
+      setTimeout(function(){
+        try{ el.className = el.className.replace(new RegExp('(?:^|\\s)'+cls+'(?:\\s|$)','g'),' ').replace(/\s+/g,' ').trim(); }catch(e){}
+      }, ms||200);
+    }catch(e){}
+  }
+
+  /* Sequence: green line → red line (with longer tension) → sigil */
+  function run(){
+    try{
+      if(bootHint) bootHint.style.display='none';
+
+      var idx=0;
+      var scrambleDur=420;   // corruption duration
+      var fadeGap=150;       // pause before fade
+      var betweenGap=80;     // base pause before next line
+
+      function next(){
+        if(idx>=lines.length){ setTimeout(revealLogo, 600); return; }
+
+        var txt=lines[idx];
+        var isDenied = (txt.indexOf('DENIED') !== -1);
+        var className = (idx===0 ? 'greenLine' : (isDenied ? 'redLine' : ''));
+        var speed = isDenied ? 75 : 70;
+
+        // Longer tension for DENIED: more time before scramble + extra hang afterwards
+        var readDelay = isDenied ? 2200 : 1200;
+        var lingerAfterFade = isDenied ? 900 : 0;
+
+        typeLine(txt, speed, className, function(span, lineEl){
+          if(span && span.textContent && span.textContent.trim().length){
+            setTimeout(function(){
+              scrambleNode(span, scrambleDur, function(){
+                setTimeout(function(){ fadeLine(lineEl); }, fadeGap);
+              });
+            }, readDelay);
+          }
+          setTimeout(next, readDelay + scrambleDur + fadeGap + betweenGap + lingerAfterFade);
+          idx++;
+        });
+      }
+      next();
+    }catch(e){ showErr(e.message||e); }
+  }
+
+  setTimeout(run, 1500);
+})();
+</script>
+</body>
+</html>
