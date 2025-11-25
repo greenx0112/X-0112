@@ -1,0 +1,160 @@
+/* Basic dark, clean theme shared by all pages */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  background: #050608;
+  color: #e7f0ff;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar */
+
+header {
+  background: #090b10;
+  border-bottom: 1px solid #20263a;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #99ffcc;
+}
+
+/* Tabs / navigation */
+
+nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #30384c;
+  color: #c3c9da;
+  background: radial-gradient(circle at top, #141926, #050608);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    transform 0.08s ease;
+}
+
+nav a:hover {
+  border-color: #8fffd5;
+  color: #e9fffb;
+  transform: translateY(-1px);
+}
+
+nav a.active {
+  border-color: #35f0ad;
+  background: radial-gradient(circle at top, #182635, #050608);
+  color: #eafff7;
+  box-shadow: 0 0 12px rgba(53, 240, 173, 0.4);
+}
+
+/* Main content */
+
+main {
+  flex: 1;
+}
+
+.main-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-top: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+
+p {
+  margin: 0 0 0.8rem;
+  line-height: 1.5;
+  color: #c3c9da;
+}
+
+.card-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+@media (min-width: 700px) {
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.card {
+  border-radius: 14px;
+  border: 1px solid #252c3d;
+  background: radial-gradient(circle at top left, #151b28, #050608);
+  padding: 14px 14px 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+.card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  color: #e9f1ff;
+}
+
+.card p {
+  font-size: 0.9rem;
+}
+
+/* Footer */
+
+footer {
+  border-top: 1px solid #20263a;
+  background: #06070c;
+}
+
+.footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10px 16px 14px;
+  font-size: 0.75rem;
+  color: #7a8296;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
