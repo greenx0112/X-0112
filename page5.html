@@ -2,16 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>x01X12x Portal | Augmented & Cyborg</title>
+  <title>x01X12x | Augmented & Cyborg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Floating numbers + sigil glitch CSS -->
+  <style>
+    .float-num {
+      position: absolute;
+      color: #00ff99;
+      font-size: 1.2rem;
+      opacity: 0.65;
+      text-shadow: 0 0 8px #00ff99;
+      animation: float-glitch 2.8s infinite alternate;
+      pointer-events: none;
+    }
+    .float-3 { top: 18px; left: 6%; animation-delay: 0.25s; }
+    .float-6 { top: 56px; left: 3%; animation-delay: 0.55s; }
+    .float-9 { top: 92px; left: 9%; animation-delay: 0.75s; }
+
+    @keyframes float-glitch {
+      0%   { transform: translate(0,0) scale(1);   opacity: 0.45; }
+      25%  { transform: translate(-2px,1px) scale(1.05); opacity: 0.75; }
+      50%  { transform: translate(1px,-2px) scale(0.95); opacity: 1; }
+      75%  { transform: translate(-1px,1px) scale(1.08); opacity: 0.6; }
+      100% { transform: translate(0,0) scale(1);   opacity: 0.45; }
+    }
+
+    @keyframes ms-glitch {
+      0% { transform:translate(0,0) }
+      10% { transform:translate(-2px,1px) }
+      20% { transform:translate(2px,-1px) }
+      30% { transform:translate(-1px,-2px) }
+      40% { transform:translate(1px,2px) }
+      50% { transform:translate(0,0) }
+      100% { transform:translate(0,0) }
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
-  <div class="header-inner">
-    <div class="site-title">x01X12x Portal</div>
-    <nav>
+  <div class="header-inner" style="text-align:center; position:relative;">
+
+    <!-- Floating numbers -->
+    <div class="float-num float-3">3</div>
+    <div class="float-num float-6">6</div>
+    <div class="float-num float-9">9</div>
+
+    <!-- Glitching sigil -->
+    <div style="margin-bottom:6px; margin-top:10px;">
+      <svg style="width:70px; filter:drop-shadow(0 0 12px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
+        <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="6" fill="none"/>
+        <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="6" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <div class="site-title">x01X12x</div>
+
+    <!-- Navigation -->
+    <nav style="margin-top:10px;">
       <a href="index.html">Home</a>
       <a href="page2.html">The Order</a>
       <a href="page3.html">The Codex</a>
@@ -20,6 +72,7 @@
       <a href="page6.html">Numbers</a>
       <a href="page7.html">Sequence</a>
     </nav>
+
   </div>
 </header>
 
@@ -64,6 +117,55 @@
 
     <h2>“Fracking the Finite Curve”</h2>
     <p>
+      In this portal’s language, “fracking the finite curve” is a poetic way of
+      saying: pushing against the apparent limits of what a human life can do.
+      Not by magic, but by:
+    </p>
+    <ul>
+      <li>learning more than you were expected to,</li>
+      <li>using tools others ignore,</li>
+      <li>and refusing to accept “that’s just how it is” as a final answer.</li>
+    </ul>
+
+    <p>
+      Cyborgs, in this sense, are simply those who look at the finite curve of
+      their existence and say: “I wonder how far I can bend this.” or,
+      "I need to escape this reality".
+    </p>
+
+    <h2>Responsibility of the Augmented</h2>
+    <p>
+      The more capabilities you have, the more care you owe yourself and
+      others. Being augmented means thinking about:
+    </p>
+    <ul>
+      <li>safety and health,</li>
+      <li>ethics and consent,</li>
+      <li>boundaries and trust.</li>
+    </ul>
+    <p>
+      You are not a machine. You are a human being who was selected to carry
+      advanced technology inside your body. That "choice" of solecetion deserves respect — 
+      from others and from yourself; somewhere you are valuable to research. However, chosen
+      few are rare to get respect. The different people, are targets from above's point
+      of view. They will test you, and push to limits never seen before. Showing off augmented
+      aspects will cause others to ponder more about youself. Some, as you know, freak out.
+      One who had seen you, thought he had died. He didn't think you were Human anymore.
+      This is why from time to time, covering these gadgets prevents the overall confusion.
+      You will know who will be able to withstand the knowledge. Just always remember protocol.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 x01X12x</span>
+    <span>Section: Augmented</span>
+  </div>
+</footer>
+
+</body>
+</html>    <p>
       In this portal’s language, “fracking the finite curve” is a poetic way of
       saying: pushing against the apparent limits of what a human life can do.
       Not by magic, but by:
