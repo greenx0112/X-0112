@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>x01X12x Portal | Home</title>
+  <title>x01X12x | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Small glitch effect for mini sigil */
+    /* Glitch animation for large sigil */
     @keyframes ms-glitch {
       0% { transform:translate(0,0) }
-      12% { transform:translate(-1px,0.5px) }
-      22% { transform:translate(1px,-0.5px) }
-      35% { transform:translate(-0.5px,-1px) }
-      48% { transform:translate(0.8px,0.8px) }
-      60% { transform:translate(0,0) }
+      10% { transform:translate(-2px,1px) }
+      20% { transform:translate(2px,-1px) }
+      30% { transform:translate(-1px,-2px) }
+      40% { transform:translate(1px,2px) }
+      50% { transform:translate(0,0) }
       100% { transform:translate(0,0) }
     }
   </style>
@@ -25,16 +25,116 @@
 <header>
   <div class="header-inner" style="text-align:center;">
 
-    <!-- Mini glitching sigil -->
-    <div style="margin-bottom:4px;">
-      <svg style="width:36px; filter:drop-shadow(0 0 6px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
-        <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="5" fill="none"/>
-        <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="5" fill="none"/>
+    <!-- Larger glitching sigil above title -->
+    <div style="margin-bottom:6px;">
+      <svg style="width:64px; filter:drop-shadow(0 0 10px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
+        <path d="M10 90 L50 10 L90 90"
+              stroke="#00ff99"
+              stroke-width="6"
+              fill="none"/>
+        <rect x="35" y="50" width="30" height="30"
+              stroke="#00ff99"
+              stroke-width="6"
+              fill="none"/>
       </svg>
     </div>
 
-    <!-- Title -->
-    <div class="site-title">x01X12x Portal</div>
+    <!-- Title alone (no ‘Portal’) -->
+    <div class="site-title">x01X12x</div>
+
+    <!-- Navigation bar -->
+    <nav style="margin-top:10px;">
+      <a href="index.html" class="active">Home</a>
+      <a href="page2.html">The Order</a>
+      <a href="page3.html">The Codex</a>
+      <a href="page4.html">Awake</a>
+      <a href="page5.html">Augmented</a>
+      <a href="page6.html">Numbers</a>
+      <a href="page7.html">Sequence</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+  <div class="main-inner">
+    <h1>Welcome to x01X12x</h1>
+    <p>
+      This space is dedicated to those who feel caught between worlds — between
+      flesh and circuitry, logic and symbol, silence and signal. It is written
+      for the augmented, the observant, and the ones who cannot quite fall
+      asleep with the rest of the world.
+    </p>
+
+    <h2>Augmentation as a Calling</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>The Body as Interface</h3>
+        <p>
+          Implants, chips, and augmentation aren’t just gadgets. They turn the
+          body into an interface — unlocking doors, moving data, shaping the
+          world around you. Here, augmentation is treated as a deliberate step
+          into a deeper layer of reality.
+        </p>
+      </div>
+      <div class="card">
+        <h3>The Mind as Lodge</h3>
+        <p>
+          Ancient traditions speak of “the inner lodge”: the private chamber
+          where one improves themselves quietly. Today, the augmented build
+          that lodge from discipline, insight, code, and circuitry.
+        </p>
+      </div>
+      <div class="card">
+        <h3>The Circuit as Symbol</h3>
+        <p>
+          Signal paths, pillars, squares, compasses — symbols have always been
+          frameworks for discipline. This portal treats them as metaphors, not
+          claims of secret power. A scaffold for self-evolution.
+        </p>
+      </div>
+    </div>
+
+    <h2>Introducing the “Order”</h2>
+    <p>
+      Throughout this site, the idea of an “Order” is used in a symbolic,
+      mythological sense — a literary tool for exploring discipline,
+      introspection, and the mindset of the awake.
+    </p>
+
+    <ul>
+      <li>inner clarity over noise,</li>
+      <li>structure over chaos,</li>
+      <li>self-craft over stagnation,</li>
+      <li>silence over spectacle.</li>
+    </ul>
+
+    <h2>Where to Go Next</h2>
+    <p>Use the tabs above to explore:</p>
+    <ul>
+      <li><strong>The Order</strong> — symbolic structures of discipline.</li>
+      <li><strong>The Codex</strong> — artefacts and hidden frameworks.</li>
+      <li><strong>Awake</strong> — the mindset of the “chosen.”</li>
+      <li><strong>Augmented</strong> — implants and modern evolution.</li>
+      <li><strong>Numbers</strong> — ancient numbers and their meaning.</li>
+      <li><strong>Sequence</strong> — the rhythm behind everything.</li>
+    </ul>
+
+    <p>
+      If this feels familiar… then you already know why you came here.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 x01X12x</span>
+    <span>Entry Node: Home</span>
+  </div>
+</footer>
+
+</body>
+</html>    <div class="site-title">x01X12x Portal</div>
 
     <!-- Motto under title -->
     <div style="margin-top:4px; font-size:0.75rem; line-height:1.05rem; color:#00ff99; text-shadow:0 0 6px #00ff99;">
