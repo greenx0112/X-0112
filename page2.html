@@ -2,39 +2,158 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>x01X12x Portal | The Order</title>
+  <title>x01X12x | The Order</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Larger sigil glitch effect */
+    @keyframes ms-glitch {
+      0% { transform:translate(0,0) }
+      10% { transform:translate(-2px,1px) }
+      20% { transform:translate(2px,-1px) }
+      30% { transform:translate(-1px,-2px) }
+      40% { transform:translate(1px,2px) }
+      50% { transform:translate(0,0) }
+      100% { transform:translate(0,0) }
+    }
+
+    /* Floating numbers 3 / 6 / 9 */
+    .float-num {
+      position: absolute;
+      color: #00ff99;
+      font-size: 1.2rem;
+      opacity: 0.65;
+      text-shadow: 0 0 8px #00ff99;
+      animation: float-glitch 2.8s infinite alternate;
+      pointer-events: none;
+    }
+
+    .float-3 { top: 18px; left: 6%; animation-delay: 0.25s; }
+    .float-6 { top: 56px; left: 3%; animation-delay: 0.55s; }
+    .float-9 { top: 92px; left: 9%; animation-delay: 0.75s; }
+
+    @keyframes float-glitch {
+      0%   { transform: translate(0,0) scale(1);   opacity: 0.45; }
+      25%  { transform: translate(-2px,1px) scale(1.05); opacity: 0.75; }
+      50%  { transform: translate(1px,-2px) scale(0.95); opacity: 1; }
+      75%  { transform: translate(-1px,1px) scale(1.08); opacity: 0.6; }
+      100% { transform: translate(0,0) scale(1);   opacity: 0.45; }
+    }
+  </style>
 </head>
+
 <body>
 
+  <!-- Floating 3 / 6 / 9 -->
+  <div class="float-num float-3">3</div>
+  <div class="float-num float-6">6</div>
+  <div class="float-num float-9">9</div>
+
 <header>
-  <div class="header-inner">
-    <!-- ===================== -->
-<!-- FICTIONAL GLITCH SIGIL -->
-<!-- ===================== -->
+  <div class="header-inner" style="text-align:center;">
 
-<style>
-  /* Glowing neon green colour */
-  .sigil-container {
-    text-align: center;
-    margin-bottom: 10px;
-    position: relative;
-  }
+    <!-- Large glitching sigil above title -->
+    <div style="margin-bottom:6px;">
+      <svg style="width:64px; filter:drop-shadow(0 0 10px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
+        <path d="M10 90 L50 10 L90 90"
+              stroke="#00ff99"
+              stroke-width="6"
+              fill="none"/>
+        <rect x="35" y="50" width="30" height="30"
+              stroke="#00ff99"
+              stroke-width="6"
+              fill="none"/>
+      </svg>
+    </div>
 
-  .sigil {
-    width: 90px;
-    margin: 0 auto;
-    filter: drop-shadow(0 0 12px #00ff99);
-    animation: sigil-glitch 2.6s infinite;
-  }
+    <!-- Title -->
+    <div class="site-title">x01X12x</div>
 
-  /* Flickering numbers around the sigil */
-  .num-glitch {
-    position: absolute;
-    font-size: 1.1rem;
-    color: #00ff99;
-    text-shadow: 0 0 12px #00ff99;
+    <!-- Navigation -->
+    <nav style="margin-top:10px;">
+      <a href="index.html">Home</a>
+      <a href="page2.html" class="active">The Order</a>
+      <a href="page3.html">The Codex</a>
+      <a href="page4.html">Awake</a>
+      <a href="page5.html">Augmented</a>
+      <a href="page6.html">Numbers</a>
+      <a href="page7.html">Sequence</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+  <div class="main-inner">
+    <h1>The Order</h1>
+    <p>
+      In this portal, “Masons” or “the Order” do not refer to any literal,
+      modern group. They are a symbolic construct — a fictional, thematic
+      brotherhood and sisterhood representing those who treat life as a craft.
+      But you must remember there are two types of Mason.
+    </p>
+
+    <h2>What the Order Stands For (Here)</h2>
+
+    <div class="card">
+      <h3>Craftsmanship of the Self's trajectory</h3>
+      <p>
+        The Order teaches that your greatest project is yourself.
+        Every thought, habit, and reaction is “stone” to be cut, shaped,
+        and set with care. The world may remain chaotic, but the inner lodge
+        can be built with precision.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Integrity in a Fragmented World</h3>
+      <p>
+        A symbolic Mason does not claim perfection; they seek it.
+        They claim responsibility — owning their motives and the weight of
+        their promises. It takes reliability and discipline to “walk Heaven”.
+      </p>
+      <p>
+        The square and compass are used here as metaphors:  
+        the square for honesty; the compass for boundaries and direction.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Silence, Signal, and Service</h3>
+      <p>
+        Members of the symbolic Order move quietly. They value:
+      </p>
+      <ul>
+        <li><strong>Silence</strong> — listening far more than reacting.</li>
+        <li><strong>Signal</strong> — speaking only when there is meaning.</li>
+        <li><strong>Service</strong> — using ability to stabilise, not create chaos.</li>
+      </ul>
+    </div>
+
+    <h2>A Note on Reality</h2>
+    <p>
+      Real-world Freemasonry is a historical fraternal organisation with its own
+      traditions and practices. This site does not claim secret knowledge
+      about them and does not depict them literally.
+    </p>
+    <p>
+      Instead, “the Order” here is a symbolic world — a mythic framework
+      designed to explore discipline, clarity, and self-craft in a harsh,
+      noisy world.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 x01X12x</span>
+    <span>Section: The Order</span>
+  </div>
+</footer>
+
+</body>
+</html>    text-shadow: 0 0 12px #00ff99;
     animation: number-flicker 1.4s infinite alternate;
     opacity: 0.75;
   }
