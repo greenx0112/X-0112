@@ -2,16 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>x01X12x Portal | Numbers & Closure</title>
+  <title>x01X12x | Numbers & Closure</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Floating numbers + sigil glitch CSS -->
+  <style>
+    .float-num {
+      position: absolute;
+      color: #00ff99;
+      font-size: 1.2rem;
+      opacity: 0.65;
+      text-shadow: 0 0 8px #00ff99;
+      animation: float-glitch 2.8s infinite alternate;
+      pointer-events: none;
+    }
+    .float-3 { top: 18px; left: 6%; animation-delay: 0.25s; }
+    .float-6 { top: 56px; left: 3%; animation-delay: 0.55s; }
+    .float-9 { top: 92px; left: 9%; animation-delay: 0.75s; }
+
+    @keyframes float-glitch {
+      0%   { transform: translate(0,0) scale(1);   opacity: 0.45; }
+      25%  { transform: translate(-2px,1px) scale(1.05); opacity: 0.75; }
+      50%  { transform: translate(1px,-2px) scale(0.95); opacity: 1; }
+      75%  { transform: translate(-1px,1px) scale(1.08); opacity: 0.6; }
+      100% { transform: translate(0,0) scale(1);   opacity: 0.45; }
+    }
+
+    @keyframes ms-glitch {
+      0% { transform:translate(0,0) }
+      10% { transform:translate(-2px,1px) }
+      20% { transform:translate(2px,-1px) }
+      30% { transform:translate(-1px,-2px) }
+      40% { transform:translate(1px,2px) }
+      50% { transform:translate(0,0) }
+      100% { transform:translate(0,0) }
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
-  <div class="header-inner">
-    <div class="site-title">x01X12x Portal</div>
-    <nav>
+  <div class="header-inner" style="text-align:center; position:relative;">
+
+    <!-- Floating numbers -->
+    <div class="float-num float-3">3</div>
+    <div class="float-num float-6">6</div>
+    <div class="float-num float-9">9</div>
+
+    <!-- Glitching sigil -->
+    <div style="margin-bottom:6px; margin-top:10px;">
+      <svg style="width:70px; filter:drop-shadow(0 0 12px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
+        <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="6" fill="none"/>
+        <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="6" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <div class="site-title">x01X12x</div>
+
+    <!-- Navigation -->
+    <nav style="margin-top:10px;">
       <a href="index.html">Home</a>
       <a href="page2.html">The Order</a>
       <a href="page3.html">The Codex</a>
@@ -20,6 +72,7 @@
       <a href="page6.html" class="active">Numbers</a>
       <a href="page7.html">Sequence</a>
     </nav>
+
   </div>
 </header>
 
@@ -35,6 +88,83 @@
 
     <h2>The Numbers, Briefly</h2>
     <div class="card">
+      <h3>3 — Emergence</h3>
+      <p>Two forces collide. The third is the path they create between them.</p>
+      <p><em>Ask:</em> “What is the third option I haven’t seen yet?”</p>
+    </div>
+
+    <div class="card">
+      <h3>6 — Structure</h3>
+      <p>Six points define orientation. Without a frame, power leaks away.</p>
+      <p><em>Ask:</em> “What is my structure? What stabilises me?”</p>
+    </div>
+
+    <div class="card">
+      <h3>9 — Completion</h3>
+      <p>Endings repeat. Cycles close so that new ones can start.</p>
+      <p><em>Ask:</em> “What am I carrying that has already finished?”</p>
+    </div>
+
+    <div class="card">
+      <h3>432 &amp; 528 — Alignment &amp; Renewal</h3>
+      <p>
+        These stand as symbols of tuning: the idea that you can align yourself
+        with what strengthens you instead of what drains you.
+      </p>
+      <p><em>Ask:</em> “What am I tuning myself to, day after day?”</p>
+    </div>
+
+    <h2>A “Chosen” Lifestyle, Without the Ego</h2>
+    <p>
+      Living as a “chosen” does not mean believing you are above others.
+      It is a pathway to the life you wish to attain.
+      It means living as though you are:
+    </p>
+    <ul>
+      <li>responsible for your awareness,</li>
+      <li>careful with your influence,</li>
+      <li>deliberate with your choices,</li>
+      <li>and honest about your impact.</li>
+    </ul>
+
+    <p>
+      You may feel different, out-of-step, or “too awake” for your surroundings.
+      That feeling can be isolating — but it also means you have more leverage
+      to improve your own life and quietly support the people you care about.
+    </p>
+
+    <h2>Closing the Circle</h2>
+    <p>
+      Augmentation. Numbers. The Order. The Codex. Awake. None of these are
+      meant to be cages. They are lenses you can put on and take off.
+    </p>
+    <p>
+      The real “secret” of the chosen path is simple and difficult:
+    </p>
+    <ul>
+      <li>See clearly.</li>
+      <li>Act deliberately.</li>
+      <li>Carry what you know with humility.</li>
+      <li>Protect your mind, your body, and your integrity.</li>
+    </ul>
+
+    <p>
+      If this portal feels like it is speaking your language, then you do not
+      need anyone to officially “choose” you.  
+      You have already been chosen.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 x01X12x</span>
+    <span>Section: Numbers</span>
+  </div>
+</footer>
+
+</body>
+</html>    <div class="card">
       <h3>3 — Emergence</h3>
       <p>Two forces collide. The third is the path they create between them.</p>
       <p><em>Ask:</em> “What is the third option I haven’t seen yet?”</p>
