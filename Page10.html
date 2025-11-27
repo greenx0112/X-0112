@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>x01X12x | Secrets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Extra-glitchy numbers and sigil for the secret page -->
+  <style>
+    .float-num {
+      position: absolute;
+      color: #00ff99;
+      font-size: 1.3rem;
+      text-shadow: 0 0 10px #00ff99, 0 0 18px #00ff99;
+      opacity: 0.75;
+      pointer-events: none;
+      animation: float-glitch-secret 1.8s infinite alternate;
+    }
+    .float-3   { top: 10px;  left: 4%;  animation-delay: 0.1s; }
+    .float-6   { top: 52px;  left: 1%;  animation-delay: 0.35s; }
+    .float-9   { top: 94px;  left: 7%;  animation-delay: 0.6s; }
+    .float-432 { top: 28px;  right: 6%; animation-delay: 0.2s; }
+    .float-528 { top: 86px;  right: 3%; animation-delay: 0.5s; }
+
+    @keyframes float-glitch-secret {
+      0% {
+        transform: translate(0,0) scale(1);
+        opacity: 0.35;
+      }
+      20% {
+        transform: translate(-3px,2px) scale(1.08) skewX(-2deg);
+        opacity: 0.95;
+      }
+      40% {
+        transform: translate(2px,-3px) scale(0.96) skewY(2deg);
+        opacity: 0.6;
+      }
+      60% {
+        transform: translate(-2px,-1px) scale(1.12) skewX(3deg);
+        opacity: 1;
+      }
+      80% {
+        transform: translate(1px,3px) scale(0.94) skewY(-3deg);
+        opacity: 0.55;
+      }
+      100% {
+        transform: translate(0,0) scale(1);
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes ms-glitch {
+      0% { transform:translate(0,0) }
+      8% { transform:translate(-3px,1px) }
+      16% { transform:translate(3px,-1px) }
+      24% { transform:translate(-2px,-3px) }
+      32% { transform:translate(2px,3px) }
+      40% { transform:translate(-1px,1px) }
+      55% { transform:translate(1px,-1px) }
+      100% { transform:translate(0,0) }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Extra glitchy floating numbers -->
+<div class="float-num float-3">3</div>
+<div class="float-num float-6">6</div>
+<div class="float-num float-9">9</div>
+<div class="float-num float-432">432</div>
+<div class="float-num float-528">528</div>
+
+<header>
+  <div class="header-inner" style="text-align:center; position:relative;">
+
+    <!-- Sigil (kept non-clickable here to avoid looping) -->
+    <div style="margin-bottom:6px; margin-top:10px;">
+      <svg style="width:70px; filter:drop-shadow(0 0 14px #00ff99); animation:ms-glitch 2s infinite;" viewBox="0 0 100 100">
+        <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="6" fill="none"/>
+        <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="6" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <div class="site-title">x01X12x Secrets</div>
+
+    <!-- Navigation (no visible link to this page = hidden room) -->
+    <nav style="margin-top:10px;">
+      <a href="index.html">Home</a>
+      <a href="page2.html">The Order</a>
+      <a href="page3.html">The Codex</a>
+      <a href="page4.html">Awake</a>
+      <a href="page5.html">Augmented</a>
+      <a href="page6.html">Numbers</a>
+      <a href="page7.html">Sequence</a>
+      <a href="page8.html">Fibonacci</a>
+      <a href="page9.html">Zodiacs</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+  <div class="main-inner">
+    <h1>x01X12x Secrets</h1>
+    <p>
+      This node is hidden behind the sigil and is intended for your private
+      notes, drafts, and designs. All sections below are placeholders – replace
+      the headings and text with whatever you like.
+    </p>
+
+    <h2>Private Section A</h2>
+    <div class="card">
+      <h3>Your Heading Here</h3>
+      <p>
+        Replace this text with your own content. You can use this area for
+        plans, concepts, story fragments, research trails, or anything you
+        don’t want on the visible tabs.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Your Heading Here</h3>
+      <p>
+        Another green box reserved for you. Add long-form notes, bullet lists,
+        or even small rituals and protocols you want to keep close but not
+        public.
+      </p>
+    </div>
+
+    <h2>Private Section B</h2>
+    <div class="card">
+      <h3>Your Heading Here</h3>
+      <p>
+        This is a free space. You can paste Lorem Ipsum here while drafting,
+        or drop in real text once you know what you want this block to hold.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Your Heading Here</h3>
+      <p>
+        Use this card for anything that needs structure but not exposure:
+        reminders, timelines, ideas for future pages, or cipher notes.
+      </p>
+    </div>
+
+    <h2>Scratchpad</h2>
+    <p>
+      Below is a simple paragraph section you can overwrite entirely. Treat it
+      as your scratchpad:
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+      scelerisque, odio ac facilisis luctus, lorem nisl feugiat arcu, quis
+      dignissim risus urna nec nulla. Sed suscipit eros at mi interdum, in
+      vulputate leo volutpat. Curabitur porttitor sapien eu neque feugiat,
+      vitae venenatis mauris euismod. (Replace all of this with your own text.)
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 x01X12x</span>
+    <span>Section: Secrets</span>
+  </div>
+</footer>
+
+</body>
+</html>
