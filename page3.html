@@ -1,15 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <header>
+  <meta charset="utf-8">
+  <title>x01X12x | The Codex</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Floating numbers + sigil glitch CSS -->
+  <style>
+    .float-num {
+      position: absolute;
+      color: #00ff99;
+      font-size: 1.2rem;
+      opacity: 0.65;
+      text-shadow: 0 0 8px #00ff99;
+      animation: float-glitch 2.8s infinite alternate;
+      pointer-events: none;
+    }
+    .float-3 { top: 18px; left: 6%; animation-delay: 0.25s; }
+    .float-6 { top: 56px; left: 3%; animation-delay: 0.55s; }
+    .float-9 { top: 92px; left: 9%; animation-delay: 0.75s; }
+
+    @keyframes float-glitch {
+      0%   { transform: translate(0,0) scale(1);   opacity: 0.45; }
+      25%  { transform: translate(-2px,1px) scale(1.05); opacity: 0.75; }
+      50%  { transform: translate(1px,-2px) scale(0.95); opacity: 1; }
+      75%  { transform: translate(-1px,1px) scale(1.08); opacity: 0.6; }
+      100% { transform: translate(0,0) scale(1);   opacity: 0.45; }
+    }
+
+    @keyframes ms-glitch {
+      0% { transform:translate(0,0) }
+      10% { transform:translate(-2px,1px) }
+      20% { transform:translate(2px,-1px) }
+      30% { transform:translate(-1px,-2px) }
+      40% { transform:translate(1px,2px) }
+      50% { transform:translate(0,0) }
+      100% { transform:translate(0,0) }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
   <div class="header-inner" style="text-align:center; position:relative;">
 
-    <!-- Floating numbers 3 / 6 / 9 -->
+    <!-- Floating numbers -->
     <div class="float-num float-3">3</div>
     <div class="float-num float-6">6</div>
     <div class="float-num float-9">9</div>
 
-    <!-- Large glitching sigil -->
+    <!-- Glitching sigil -->
     <div style="margin-bottom:6px; margin-top:10px;">
       <svg style="width:70px; filter:drop-shadow(0 0 12px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
         <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="6" fill="none"/>
@@ -17,14 +59,14 @@
       </svg>
     </div>
 
-    <!-- Title: x01X12x -->
+    <!-- Title -->
     <div class="site-title">x01X12x</div>
 
     <!-- Navigation -->
     <nav style="margin-top:10px;">
       <a href="index.html">Home</a>
       <a href="page2.html">The Order</a>
-      <a href="page3.html">The Codex</a>
+      <a href="page3.html" class="active">The Codex</a>
       <a href="page4.html">Awake</a>
       <a href="page5.html">Augmented</a>
       <a href="page6.html">Numbers</a>
@@ -32,9 +74,81 @@
     </nav>
 
   </div>
-  </header>
-  <meta charset="utf-8">
-  <title>x01X12x Portal | The Codex</title>
+</header>
+
+<main>
+  <div class="main-inner">
+
+    <h1>The Codex & the Hidden Archive</h1>
+    <p>
+      In the lore of the x01X12x Portal, “the Codex” is the imagined book that
+      never stays in one place: a shifting archive of symbols, artefacts, and
+      half-remembered truths. It is not a literal document, but a way of talking
+      about knowledge that always feels just out of reach.
+    </p>
+
+    <h2>Artefacts of the Story</h2>
+
+    <div class="card">
+      <h3>The Compass That Points Inward</h3>
+      <p>
+        This compass does not point north. It swings in chaos until the carrier
+        is honest. Only then does it settle. In the Codex, it symbolises the idea
+        that direction comes from inner alignment.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>The Square of Uncomfortable Truths</h3>
+      <p>
+        The Square “buzzes” whenever someone distorts reality to make things
+        easier. It teaches that truth and discomfort often live side by side.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>The Sealed Pages</h3>
+      <p>
+        Some chapters are sealed—not by governments but by the reader’s own
+        readiness. Certain knowledge unlocks only when the mind is able to
+        carry it without collapsing.
+      </p>
+    </div>
+
+    <h2>Hidden Things & Governments (In Lore)</h2>
+    <p>
+      Vaults beneath old buildings. Lost archives. Rooms without doors.
+      Here, these are symbolic representations—not claims of literal conspiracy.
+    </p>
+
+    <p>
+      “What governments hide” becomes a metaphor for:
+    </p>
+
+    <ul>
+      <li>truths we collectively ignore,</li>
+      <li>patterns most people never notice,</li>
+      <li>the unseen consequences beneath public decisions.</li>
+    </ul>
+
+    <p>
+      The Codex is less about artefacts and more about that lingering sense that
+      there is always more beneath the surface — especially the parts we are
+      not encouraged to examine.
+    </p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 x01X12x Portal</span>
+    <span>Section: The Codex</span>
+  </div>
+</footer>
+
+</body>
+</html>  <title>x01X12x Portal | The Codex</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
 </head>
