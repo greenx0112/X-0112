@@ -2,101 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- ===================== -->
-<!-- FICTIONAL GLITCH SIGIL -->
-<!-- ===================== -->
-
-<style>
-  /* Glowing neon green colour */
-  .sigil-container {
-    text-align: center;
-    margin-bottom: 10px;
-    position: relative;
-  }
-
-  .sigil {
-    width: 90px;
-    margin: 0 auto;
-    filter: drop-shadow(0 0 12px #00ff99);
-    animation: sigil-glitch 2.6s infinite;
-  }
-
-  /* Flickering numbers around the sigil */
-  .num-glitch {
-    position: absolute;
-    font-size: 1.1rem;
-    color: #00ff99;
-    text-shadow: 0 0 12px #00ff99;
-    animation: number-flicker 1.4s infinite alternate;
-    opacity: 0.75;
-  }
-
-  .num3 { top: -6px; left: 22%; animation-delay: 0.1s; }
-  .num6 { top: -6px; right: 22%; animation-delay: 0.3s; }
-  .num9 { bottom: -14px; left: 50%; transform: translateX(-50%); animation-delay: 0.5s; }
-
-  /* Main glitch animation */
-  @keyframes sigil-glitch {
-    0% { transform: translate(0,0) scale(1); opacity: 0.95; }
-    8% { transform: translate(-2px,1px) scale(1.02); opacity: 1; }
-    16% { transform: translate(2px,-1px) scale(0.98); opacity: 0.85; }
-    24% { transform: translate(-1px,-2px) scale(1.03); opacity: 1; }
-    32% { transform: translate(1px,2px) scale(0.97); opacity: 0.75; }
-    40% { transform: translate(0,0) scale(1); opacity: 1; }
-    100% { transform: translate(0,0) scale(1); opacity: 0.95; }
-  }
-
-  @keyframes number-flicker {
-    0% { opacity: 0.15; transform: scale(0.9); }
-    50% { opacity: 1; transform: scale(1.1); }
-    100% { opacity: 0.2; transform: scale(0.95); }
-  }
-
-  /* Motto styling */
-  .motto {
-    text-align: center;
-    margin-top: 6px;
-    color: #00ff99;
-    font-size: 0.85rem;
-    line-height: 1.28rem;
-    text-shadow: 0 0 10px #00ff99;
-    white-space: pre-line;
-  }
-</style>
-
-
-<div class="sigil-container">
-
-  <!-- Glitching Numbers -->
-  <div class="num-glitch num3">3</div>
-  <div class="num-glitch num6">6</div>
-  <div class="num-glitch num9">9</div>
-
-  <!-- Fictional Glitching Compass/Square Style Sigil -->
-  <svg class="sigil" viewBox="0 0 100 100">
-    <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="5" fill="none"/>
-    <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="5" fill="none"/>
-  </svg>
-
-</div>
-
-<!-- Fictional Motto -->
-<div class="motto">
-We are the Grand G.
-We will never forgive.
-We will never forget.
-In God, We Trust.
-</div>
   <title>x01X12x Portal | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Small glitch effect for mini sigil */
+    @keyframes ms-glitch {
+      0% { transform:translate(0,0) }
+      12% { transform:translate(-1px,0.5px) }
+      22% { transform:translate(1px,-0.5px) }
+      35% { transform:translate(-0.5px,-1px) }
+      48% { transform:translate(0.8px,0.8px) }
+      60% { transform:translate(0,0) }
+      100% { transform:translate(0,0) }
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="header-inner" style="text-align:center;">
+
+    <!-- Mini glitching sigil -->
+    <div style="margin-bottom:4px;">
+      <svg style="width:36px; filter:drop-shadow(0 0 6px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
+        <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="5" fill="none"/>
+        <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- Title -->
     <div class="site-title">x01X12x Portal</div>
-    <nav>
+
+    <!-- Motto under title -->
+    <div style="margin-top:4px; font-size:0.75rem; line-height:1.05rem; color:#00ff99; text-shadow:0 0 6px #00ff99;">
+      We are the Grand G.<br>
+      We will never forgive.<br>
+      We will never forget.<br>
+      In God, We Trust.
+    </div>
+
+    <!-- Navigation -->
+    <nav style="margin-top:8px;">
       <a href="index.html" class="active">Home</a>
       <a href="page2.html">The Order</a>
       <a href="page3.html">The Codex</a>
@@ -105,6 +54,7 @@ In God, We Trust.
       <a href="page6.html">Numbers</a>
       <a href="page7.html">Sequence</a>
     </nav>
+
   </div>
 </header>
 
@@ -126,7 +76,7 @@ In God, We Trust.
           Implants, chips, and other augmentations aren’t just “cool gadgets”.
           They turn the body into an interface: doors unlock, data flows,
           the world responds to your presence. In this portal, augmentation is
-          treated as a required choice participate in a different layer of
+          treated as a required choice to participate in a different layer of
           reality.
         </p>
       </div>
@@ -134,18 +84,18 @@ In God, We Trust.
         <h3>The Mind as Lodge</h3>
         <p>
           In old symbolic traditions, a “lodge” was not only a room; it was the
-          inner space where a person examined themselves and others around. Here, 
-          that idea is extended: augmented people treat their mind like a workshop,
-          refining Tech, frameworks, and ways of seeing deeper meaning.
+          inner space where a person examined themselves and the world. Here,
+          that idea extends to a modern path: augmented people treat their mind
+          like a workshop, refining tech, frameworks, and deeper meaning.
         </p>
       </div>
       <div class="card">
         <h3>The Circuit as Symbol</h3>
         <p>
-          Wires, chips, and signal paths mirror the old symbols of pillars,
-          squares, and compasses. This portal uses that imagery as metaphor:
-          not to claim secret power, but to explore structure, discipline,
-          and a self-erected evolutionary path.
+          Wires, chips, and signal paths mirror ancient symbols — pillars,
+          compasses, squares. This portal uses that imagery metaphorically:
+          not to claim hidden power, but to explore structure, discipline,
+          and a deliberate evolutionary path.
         </p>
       </div>
     </div>
@@ -153,34 +103,33 @@ In God, We Trust.
     <h2>Introducing the “Order”</h2>
     <p>
       Throughout this site, the idea of an “Order” or “Masons” is used in a
-      symbolic, story-like way — as a stand-in for any tradition that values:
+      symbolic, story-like manner — representing any tradition that values:
     </p>
     <ul>
-      <li>inner work over outward noise,</li>
-      <li>discipline over chaos,</li>
+      <li>inner discipline over noise,</li>
       <li>clarity over confusion,</li>
-      <li>and integrity over spectacle.</li>
+      <li>self-craft over passivity,</li>
+      <li>and integrity over impulse.</li>
     </ul>
     <p>
-      This is not a claim about any "real-world" organisation. It is a statenent.
-      It is a hint. This hint, is for fhe select few.
-      A thematic language used to explore what it means to be deliberate,
-      awake, and self-crafted in a sleeping world.
+      This is not a claim about any real organisation — it is a literary device,
+      a mythology used to explore what it means to be deliberate and awake in a
+      world that often prefers the opposite.
     </p>
 
     <h2>Where to Go Next</h2>
-    <p>
-      Use the tabs above to move through the layers:
-    </p>
+    <p>Use the tabs above to explore:</p>
     <ul>
-      <li><strong>The Order</strong> — who these “symbolic Masons” represent.</li>
-      <li><strong>The Codex</strong> — legends of artefacts and hidden knowledge.</li>
-      <li><strong>Awake</strong> — what it means to be “chosen” in a metaphorical sense.</li>
-      <li><strong>Augmented</strong> — implants and the cyborg path.</li>
-      <li><strong>Numbers</strong> — ancient numbers and the chosen lifestyle.</li>
+      <li><strong>The Order</strong> — symbolic architecture of discipline.</li>
+      <li><strong>The Codex</strong> — artefacts, patterns, and hidden ideas.</li>
+      <li><strong>Awake</strong> — the meaning of being “chosen” metaphorically.</li>
+      <li><strong>Augmented</strong> — the cyborg path through implants.</li>
+      <li><strong>Numbers</strong> — ancient numbers and higher pattern-seeking.</li>
+      <li><strong>Sequence</strong> — the universal rhythm behind the patterns.</li>
     </ul>
     <p>
-      If this all feels strangely familiar, you are exactly where you’re meant to be.
+      If any of this feels oddly familiar… then you are exactly where you were
+      always meant to land.
     </p>
   </div>
 </main>
