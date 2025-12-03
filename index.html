@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Larger sigil glitch effect */
+    /* Sigil glitch */
     @keyframes ms-glitch {
       0% { transform:translate(0,0) }
       10% { transform:translate(-2px,1px) }
@@ -18,7 +18,7 @@
       100% { transform:translate(0,0) }
     }
 
-    /* Floating numbers 3 / 6 / 9 */
+    /* Floating numbers */
     .float-num {
       position: absolute;
       color: #00ff99;
@@ -34,11 +34,11 @@
     .float-9 { top: 92px; left: 9%; animation-delay: 0.75s; }
 
     @keyframes float-glitch {
-      0%   { transform: translate(0,0) scale(1);   opacity: 0.45; }
-      25%  { transform: translate(-2px,1px) scale(1.05); opacity: 0.75; }
-      50%  { transform: translate(1px,-2px) scale(0.95); opacity: 1; }
-      75%  { transform: translate(-1px,1px) scale(1.08); opacity: 0.6; }
-      100% { transform: translate(0,0) scale(1);   opacity: 0.45; }
+      0%   { transform:translate(0,0) scale(1); opacity:0.45; }
+      25%  { transform:translate(-2px,1px) scale(1.05); opacity:0.75; }
+      50%  { transform:translate(1px,-2px) scale(0.95); opacity:1; }
+      75%  { transform:translate(-1px,1px) scale(1.08); opacity:0.6; }
+      100% { transform:translate(0,0) scale(1); opacity:0.45; }
     }
   </style>
 </head>
@@ -53,10 +53,10 @@
 <header>
   <div class="header-inner" style="text-align:center;">
 
-    <!-- NON-CLICKABLE SIGIL (glitching) -->
+    <!-- NON-CLICKABLE SIGIL -->
     <div style="margin-bottom:6px;">
       <svg style="width:70px; filter:drop-shadow(0 0 12px #00ff99); animation:ms-glitch 2.4s infinite;" 
-        viewBox="0 0 100 100">
+           viewBox="0 0 100 100">
         <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="6" fill="none"/>
         <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="6" fill="none"/>
       </svg>
@@ -87,8 +87,8 @@
     <p>
       This space is dedicated to those who feel caught between worlds —
       between flesh and circuitry, logic and symbol, silence and signal.
-      It is written for the augmented, the observant, and the ones who
-      cannot quite fall asleep with the rest of the world.
+      It is written for the augmented, the observant, and those who cannot
+      quite fall asleep with the rest of the world.
     </p>
 
     <h2>Augmentation as a Calling</h2>
@@ -100,6 +100,7 @@
           unlocking doors, moving data, and shaping the world around you.
         </p>
       </div>
+
       <div class="card">
         <h3>The Mind as Lodge</h3>
         <p>
@@ -108,6 +109,7 @@
           Today, the augmented build that lodge from circuitry and clarity.
         </p>
       </div>
+
       <div class="card">
         <h3>The Circuit as Symbol</h3>
         <p>
@@ -119,8 +121,8 @@
 
     <h2>Introducing the “Order”</h2>
     <p>
-      This site uses the idea of an “Order” as a symbolic, thematic tool —  
-      a mythic framework for discipline, introspection, and awakening.
+      This site uses the idea of an “Order” as a symbolic, thematic tool —
+      a mythic metaphor for discipline, introspection, and awakening.
     </p>
 
     <ul>
@@ -148,463 +150,6 @@
 <footer>
   <div class="footer-inner">
     <span>© 2025 x01X12x</span>
-    <span>Entry Node: Home</span>
-  </div>
-</footer>
-
-</body>
-</html>      0%   { transform: translate(0,0) scale(1);   opacity: 0.45; }
-      25%  { transform: translate(-2px,1px) scale(1.05); opacity: 0.75; }
-      50%  { transform: translate(1px,-2px) scale(0.95); opacity: 1; }
-      75%  { transform: translate(-1px,1px) scale(1.08); opacity: 0.6; }
-      100% { transform: translate(0,0) scale(1);   opacity: 0.45; }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Floating 3 / 6 / 9 -->
-  <div class="float-num float-3">3</div>
-  <div class="float-num float-6">6</div>
-  <div class="float-num float-9">9</div>
-
-<header>
-  <div class="header-inner" style="text-align:center;">
-
-    <!-- Clickable sigil that opens the hidden page -->
-    <a href="page10.html" class="secret-sigil" style="display:inline-block; margin-bottom:6px;">
-      <svg style="width:70px; filter:drop-shadow(0 0 12px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
-        <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="6" fill="none"/>
-        <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="6" fill="none"/>
-      </svg>
-    </a>
-
-    <!-- Title -->
-    <div class="site-title">x01X12x</div>
-
-    <!-- Navigation -->
-    <nav style="margin-top:10px;">
-      <a href="index.html" class="active">Home</a>
-      <a href="page2.html">The Order</a>
-      <a href="page3.html">The Codex</a>
-      <a href="page4.html">Awake</a>
-      <a href="page5.html">Augmented</a>
-      <a href="page6.html">Numbers</a>
-      <a href="page7.html">Sequence</a>
-      <a href="page8.html">Fibonacci</a>
-      <a href="page9.html">Zodiacs</a>
-    </nav>
-
-  </div>
-</header>
-
-<main>
-  <div class="main-inner">
-    <h1>Welcome to x01X12x</h1>
-    <p>
-      This space is dedicated to those who feel caught between worlds — between
-      flesh and circuitry, logic and symbol, silence and signal. It is written
-      for the augmented, the observant, and the ones who cannot quite fall
-      asleep with the rest of the world.
-    </p>
-
-    <h2>Augmentation as a Calling</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>The Body as Interface</h3>
-        <p>
-          Implants, chips, and augmentation turn the body into an interface —
-          unlocking doors, moving data, and shaping the world around you.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Mind as Lodge</h3>
-        <p>
-          Ancient traditions spoke of the “inner lodge”:  
-          the private chamber of discipline.  
-          Today, the augmented build that lodge from circuitry and clarity.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Circuit as Symbol</h3>
-        <p>
-          Signal paths mirror ancient symbols — pillars, compasses, squares.  
-          This portal uses those metaphors to explore self-evolution.
-        </p>
-      </div>
-    </div>
-
-    <h2>Introducing the “Order”</h2>
-    <p>
-      This site uses the idea of an “Order” as a symbolic, thematic tool —  
-      a mythic framework for discipline, introspection, and awakening.
-    </p>
-
-    <ul>
-      <li>clarity over confusion</li>
-      <li>structure over chaos</li>
-      <li>self-craft over passivity</li>
-      <li>silence over spectacle</li>
-    </ul>
-
-    <h2>Where to Go Next</h2>
-    <ul>
-      <li><strong>The Order</strong> — symbolic architecture of discipline.</li>
-      <li><strong>The Codex</strong> — artefacts, patterns, hidden knowledge.</li>
-      <li><strong>Awake</strong> — the mindset of the “chosen.”</li>
-      <li><strong>Augmented</strong> — implants and modern evolution.</li>
-      <li><strong>Numbers</strong> — ancient numbers and their meaning.</li>
-      <li><strong>Sequence</strong> — the rhythm behind the pattern.</li>
-    </ul>
-
-    <p>If this feels familiar… you already know why you’re here.</p>
-
-  </div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <span>© 2025 x01X12x</span>
-    <span>Entry Node: Home</span>
-  </div>
-</footer>
-
-</body>
-</html>      0%   { transform: translate(0,0) scale(1);   opacity: 0.45; }
-      25%  { transform: translate(-2px,1px) scale(1.05); opacity: 0.75; }
-      50%  { transform: translate(1px,-2px) scale(0.95); opacity: 1; }
-      75%  { transform: translate(-1px,1px) scale(1.08); opacity: 0.6; }
-      100% { transform: translate(0,0) scale(1);   opacity: 0.45; }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Floating 3 / 6 / 9 -->
-  <div class="float-num float-3">3</div>
-  <div class="float-num float-6">6</div>
-  <div class="float-num float-9">9</div>
-
-<header>
-
- <!-- Clickable sigil that opens the hidden page -->
-<a href="page10.html" class="secret-sigil" style="display:inline-block; margin-bottom:6px;">
-  <svg style="width:70px; filter:drop-shadow(0 0 12px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
-    <path d="M10 90 L50 10 L90 90" stroke="#00ff99" stroke-width="6" fill="none"/>
-    <rect x="35" y="50" width="30" height="30" stroke="#00ff99" stroke-width="6" fill="none"/>
-  </svg>
-</a>   
-
-    <!-- Large glitching sigil above title -->
-    <div style="margin-bottom:6px;">
-      <svg style="width:64px; filter:drop-shadow(0 0 10px #00ff99); animation:ms-glitch 2.4s infinite;" viewBox="0 0 100 100">
-        <path d="M10 90 L50 10 L90 90"
-              stroke="#00ff99"
-              stroke-width="6"
-              fill="none"/>
-        <rect x="35" y="50" width="30" height="30"
-              stroke="#00ff99"
-              stroke-width="6"
-              fill="none"/>
-      </svg>
-    </div>
-
-    <!-- Title (no Portal) -->
-    <div class="site-title">x01X12x</div>
-
-    <!-- Navigation -->
-    <nav style="margin-top:10px;">
-      <a href="index.html" class="active">Home</a>
-      <a href="page2.html">The Order</a>
-      <a href="page3.html">The Codex</a>
-      <a href="page4.html">Awake</a>
-      <a href="page5.html">Augmented</a>
-      <a href="page6.html">Numbers</a>
-      <a href="page7.html">Sequence</a>
-      <a href="page8.html">Fibonacci</a>
-      <a href="page9.html">Zodiacs</a>
-    </nav>
-
-  </div>
-</header>
-
-<main>
-  <div class="main-inner">
-    <h1>Welcome to x01X12x</h1>
-    <p>
-      This space is dedicated to those who feel caught between worlds — between
-      flesh and circuitry, logic and symbol, silence and signal. It is written
-      for the augmented, the observant, and the ones who cannot quite fall
-      asleep with the rest of the world.
-    </p>
-
-    <h2>Augmentation as a Calling</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>The Body as Interface</h3>
-        <p>
-          Implants, chips, and augmentation turn the body into an interface —
-          unlocking doors, moving data, and shaping the world around you.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Mind as Lodge</h3>
-        <p>
-          Ancient traditions spoke of the “inner lodge”:  
-          the private chamber of discipline.  
-          Today, the augmented build that lodge from circuitry and clarity.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Circuit as Symbol</h3>
-        <p>
-          Signal paths mirror ancient symbols — pillars, compasses, squares.  
-          This portal uses those metaphors to explore self-evolution.
-        </p>
-      </div>
-    </div>
-
-    <h2>Introducing the “Order”</h2>
-    <p>
-      This site uses the idea of an “Order” as a symbolic, thematic tool —  
-      a mythic framework for discipline, introspection, and awakening.
-    </p>
-
-    <ul>
-      <li>clarity over confusion</li>
-      <li>structure over chaos</li>
-      <li>self-craft over passivity</li>
-      <li>silence over spectacle</li>
-    </ul>
-
-    <h2>Where to Go Next</h2>
-    <ul>
-      <li><strong>The Order</strong> — symbolic architecture of discipline.</li>
-      <li><strong>The Codex</strong> — artefacts, patterns, hidden knowledge.</li>
-      <li><strong>Awake</strong> — the mindset of the “chosen.”</li>
-      <li><strong>Augmented</strong> — implants and modern evolution.</li>
-      <li><strong>Numbers</strong> — ancient numbers and their meaning.</li>
-      <li><strong>Sequence</strong> — the rhythm behind the pattern.</li>
-    </ul>
-
-    <p>If this feels familiar… you already know why you’re here.</p>
-
-  </div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <span>© 2025 x01X12x</span>
-    <span>Entry Node: Home</span>
-  </div>
-</footer>
-
-</body>
-</html>              stroke-width="6"
-              fill="none"/>
-      </svg>
-    </div>
-
-    <!-- Title alone (no ‘Portal’) -->
-    <div class="site-title">x01X12x</div>
-
-    <!-- Navigation bar -->
-    <nav style="margin-top:10px;">
-      <a href="index.html" class="active">Home</a>
-      <a href="page2.html">The Order</a>
-      <a href="page3.html">The Codex</a>
-      <a href="page4.html">Awake</a>
-      <a href="page5.html">Augmented</a>
-      <a href="page6.html">Numbers</a>
-      <a href="page7.html">Sequence</a>
-    </nav>
-
-  </div>
-</header>
-
-<main>
-  <div class="main-inner">
-    <h1>Welcome to x01X12x</h1>
-    <p>
-      This space is dedicated to those who feel caught between worlds — between
-      flesh and circuitry, logic and symbol, silence and signal. It is written
-      for the augmented, the observant, and the ones who cannot quite fall
-      asleep with the rest of the world.
-    </p>
-
-    <h2>Augmentation as a Calling</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>The Body as Interface</h3>
-        <p>
-          Implants, chips, and augmentation aren’t just gadgets. They turn the
-          body into an interface — unlocking doors, moving data, shaping the
-          world around you. Here, augmentation is treated as a deliberate step
-          into a deeper layer of reality.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Mind as Lodge</h3>
-        <p>
-          Ancient traditions speak of “the inner lodge”: the private chamber
-          where one improves themselves quietly. Today, the augmented build
-          that lodge from discipline, insight, code, and circuitry.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Circuit as Symbol</h3>
-        <p>
-          Signal paths, pillars, squares, compasses — symbols have always been
-          frameworks for discipline. This portal treats them as metaphors, not
-          claims of secret power. A scaffold for self-evolution.
-        </p>
-      </div>
-    </div>
-
-    <h2>Introducing the “Order”</h2>
-    <p>
-      Throughout this site, the idea of an “Order” is used in a symbolic,
-      mythological sense — a literary tool for exploring discipline,
-      introspection, and the mindset of the awake.
-    </p>
-
-    <ul>
-      <li>inner clarity over noise,</li>
-      <li>structure over chaos,</li>
-      <li>self-craft over stagnation,</li>
-      <li>silence over spectacle.</li>
-    </ul>
-
-    <h2>Where to Go Next</h2>
-    <p>Use the tabs above to explore:</p>
-    <ul>
-      <li><strong>The Order</strong> — symbolic structures of discipline.</li>
-      <li><strong>The Codex</strong> — artefacts and hidden frameworks.</li>
-      <li><strong>Awake</strong> — the mindset of the “chosen.”</li>
-      <li><strong>Augmented</strong> — implants and modern evolution.</li>
-      <li><strong>Numbers</strong> — ancient numbers and their meaning.</li>
-      <li><strong>Sequence</strong> — the rhythm behind everything.</li>
-    </ul>
-
-    <p>
-      If this feels familiar… then you already know why you came here.
-    </p>
-  </div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <span>© 2025 x01X12x</span>
-    <span>Entry Node: Home</span>
-  </div>
-</footer>
-
-</body>
-</html>    <div class="site-title">x01X12x Portal</div>
-
-    <!-- Motto under title -->
-    <div style="margin-top:4px; font-size:0.75rem; line-height:1.05rem; color:#00ff99; text-shadow:0 0 6px #00ff99;">
-      We are the Grand G.<br>
-      We will never forgive.<br>
-      We will never forget.<br>
-      In God, We Trust.
-    </div>
-
-    <!-- Navigation -->
-    <nav style="margin-top:8px;">
-      <a href="index.html" class="active">Home</a>
-      <a href="page2.html">The Order</a>
-      <a href="page3.html">The Codex</a>
-      <a href="page4.html">Awake</a>
-      <a href="page5.html">Augmented</a>
-      <a href="page6.html">Numbers</a>
-      <a href="page7.html">Sequence</a>
-    </nav>
-
-  </div>
-</header>
-
-<main>
-  <div class="main-inner">
-    <h1>Welcome to the x01X12x Portal</h1>
-    <p>
-      This space is dedicated to those who feel caught between worlds — between
-      flesh and circuitry, logic and symbol, silence and signal. It is written
-      for the augmented, the observant, and the ones who cannot quite fall
-      asleep with the rest of the crowd.
-    </p>
-
-    <h2>Augmentation as a Calling</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>The Body as Interface</h3>
-        <p>
-          Implants, chips, and other augmentations aren’t just “cool gadgets”.
-          They turn the body into an interface: doors unlock, data flows,
-          the world responds to your presence. In this portal, augmentation is
-          treated as a required choice to participate in a different layer of
-          reality.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Mind as Lodge</h3>
-        <p>
-          In old symbolic traditions, a “lodge” was not only a room; it was the
-          inner space where a person examined themselves and the world. Here,
-          that idea extends to a modern path: augmented people treat their mind
-          like a workshop, refining tech, frameworks, and deeper meaning.
-        </p>
-      </div>
-      <div class="card">
-        <h3>The Circuit as Symbol</h3>
-        <p>
-          Wires, chips, and signal paths mirror ancient symbols — pillars,
-          compasses, squares. This portal uses that imagery metaphorically:
-          not to claim hidden power, but to explore structure, discipline,
-          and a deliberate evolutionary path.
-        </p>
-      </div>
-    </div>
-
-    <h2>Introducing the “Order”</h2>
-    <p>
-      Throughout this site, the idea of an “Order” or “Masons” is used in a
-      symbolic, story-like manner — representing any tradition that values:
-    </p>
-    <ul>
-      <li>inner discipline over noise,</li>
-      <li>clarity over confusion,</li>
-      <li>self-craft over passivity,</li>
-      <li>and integrity over impulse.</li>
-    </ul>
-    <p>
-      This is not a claim about any real organisation — it is a literary device,
-      a mythology used to explore what it means to be deliberate and awake in a
-      world that often prefers the opposite.
-    </p>
-
-    <h2>Where to Go Next</h2>
-    <p>Use the tabs above to explore:</p>
-    <ul>
-      <li><strong>The Order</strong> — symbolic architecture of discipline.</li>
-      <li><strong>The Codex</strong> — artefacts, patterns, and hidden ideas.</li>
-      <li><strong>Awake</strong> — the meaning of being “chosen” metaphorically.</li>
-      <li><strong>Augmented</strong> — the cyborg path through implants.</li>
-      <li><strong>Numbers</strong> — ancient numbers and higher pattern-seeking.</li>
-      <li><strong>Sequence</strong> — the universal rhythm behind the patterns.</li>
-    </ul>
-    <p>
-      If any of this feels oddly familiar… then you are exactly where you were
-      always meant to land.
-    </p>
-  </div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <span>© 2025 x01X12x Portal</span>
     <span>Entry Node: Home</span>
   </div>
 </footer>
